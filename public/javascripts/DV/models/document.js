@@ -20,6 +20,8 @@ DV.model.Document = function(viewer){
   this.additionalPaddingOnPage   = data.additionalPaddingOnPage;
   this.pageWidthPadding          = data.pageWidthPadding;
   this.totalPages                = data.totalPages;
+  
+  this.onPageChangeCallbacks = [];
 
   var zoom = this.zoomLevel = this.viewer.options.zoom || data.zoomLevel;
   if (zoom == 'auto') this.zoomLevel = data.zoomLevel;
@@ -35,6 +37,7 @@ DV.model.Document.prototype = {
     this.currentPageIndex = index;
     this.viewer.elements.currentPage.text(this.currentPage());
     this.viewer.helpers.setActiveChapter(this.viewer.models.chapters.getChapterId(index));
+    _.each(this.onPageChangeCallbacks, function(c) { c(); });
     return index;
   },
   currentPage : function() {

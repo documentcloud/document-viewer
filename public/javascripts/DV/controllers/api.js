@@ -10,6 +10,16 @@ DV.Api.prototype = {
   currentPage : function() {
     return this.viewer.models.document.currentPage();
   },
+  
+  // Set the current page of the document.
+  setCurrentPage : function(page) {
+    this.viewer.helpers.jump(page - 1);
+  },
+  
+  // Register a callback for when the page is changed.
+  onPageChange : function(callback) {
+    this.viewer.models.document.onPageChangeCallbacks.push(callback);
+  },
 
   // Return the page number for one of the three physical page DOM elements, by id:
   getPageNumberForId : function(id) {
