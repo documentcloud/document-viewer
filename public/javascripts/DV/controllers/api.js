@@ -211,6 +211,10 @@ DV.Api.prototype = {
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
+  
+  getState : function() {
+    return this.viewer.state;
+  },
 
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
@@ -243,6 +247,17 @@ DV.Api.prototype = {
     var tabs = this.viewer.$('.DV-views > div:visible');
     tabs.first().addClass('DV-first');
     tabs.last().addClass('DV-last');
+  },
+  
+  // Register hooks into DV's hash history
+  registerHashListener : function(matcher, callback) {
+    this.viewer.history.register(matcher, callback);
+  },
+  
+  // Clobber DV's existing history hooks
+  clearHashListeners : function() {
+    this.viewer.history.defaultCallback = null;
+    this.viewer.history.handlers = [];
   },
 
   // ---------------------- Enter/Leave Edit Modes -----------------------------
