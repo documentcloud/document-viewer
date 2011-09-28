@@ -79,6 +79,8 @@ DV.model.Annotations.prototype = {
 
   // Renders each annotation into it's HTML format.
   renderAnnotations: function(){
+    if (this.viewer.options.showAnnotations === false) return;
+            
     for (var i=0; i<this.bySortOrder.length; i++) {
       var anno      = this.bySortOrder[i];
       anno.of       = _.indexOf(this.byPage[anno.page - 1], anno);

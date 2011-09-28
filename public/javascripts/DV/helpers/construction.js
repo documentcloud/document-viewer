@@ -1,5 +1,10 @@
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
+  showAnnotations : function() {
+    if (this.viewer.options.showAnnotations === false) return false;
+    return _.any(this.models.annotations.byId);
+  },
+  
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
@@ -17,7 +22,7 @@ _.extend(DV.Schema.helpers, {
     var pdfURL = doc.resources.pdf;
     pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
 
-    var showAnnotations = _.any(this.models.annotations.byId);
+    var showAnnotations = this.showAnnotations();
     var printNotesURL = (showAnnotations) && doc.resources.print_annotations;
 
     var viewerOptions = {
@@ -101,10 +106,12 @@ _.extend(DV.Schema.helpers, {
     };
     /* ---------------------------------------------------- end the nav helper methods */
 
-    for(var i = 0,len = this.models.document.totalPages; i < len;i++){
-      if(this.viewer.schema.data.annotationsByPage[i]){
-        nav[i]   = createNavAnnotations(i);
-        notes[i] = nav[i];
+    if (this.showAnnotations()) { 
+      for(var i = 0,len = this.models.document.totalPages; i < len;i++){
+        if(this.viewer.schema.data.annotationsByPage[i]){
+          nav[i]   = createNavAnnotations(i);
+          notes[i] = nav[i];
+        }
       }
     }
 
@@ -149,7 +156,7 @@ _.extend(DV.Schema.helpers, {
     chaptersContainer = null;
   },
 
-  // Hide or show all of the comoponents on the page that may or may not be
+  // Hide or show all of the components on the page that may or may not be
   // present, depending on what the document provides.
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
@@ -164,7 +171,7 @@ _.extend(DV.Schema.helpers, {
     }
 
     // Hide and show navigation flags:
-    var showAnnotations = _.any(this.models.annotations.byId);
+    var showAnnotations = this.showAnnotations();
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
