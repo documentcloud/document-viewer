@@ -298,7 +298,28 @@ DV.Schema.helpers = {
 
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
-      window.open(doc.canonicalURL, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
+      var url = doc.canonicalURL.replace(/#\S+$/,"");
+      var currentPage = this.models.document.currentPage();
+
+      // construct url fragment based on current viewer state
+      switch (this.viewer.state) {
+        case 'ViewAnnotation':
+          url += '#annotation/a' + this.viewer.activeAnnotationId; // default to the top of the annotations page.
+          break;
+        case 'ViewDocument':
+          url += '#document/p' + currentPage;
+          break;
+        case 'ViewSearch':
+          url += '#search/p' + currentPage + '/' + encodeURIComponent(this.elements.searchInput.val());
+          break;
+        case 'ViewText':
+          url += '#text/p' + currentPage;
+          break;
+        case 'ViewThumbnails':
+          url += '#pages/p' + currentPage; // need to set up a route to catch this.
+          break;
+      } 
+      window.open(url, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
 
     // Determine the correct DOM page ordering for a given page index.
