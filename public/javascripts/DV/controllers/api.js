@@ -227,6 +227,11 @@ DV.Api.prototype = {
   getState : function() {
     return this.viewer.state;
   },
+  
+  // set the state. This takes "ViewDocument," "ViewThumbnails", "ViewText"
+  setState : function(state) {
+    this.viewer.open(state);
+  },
 
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
