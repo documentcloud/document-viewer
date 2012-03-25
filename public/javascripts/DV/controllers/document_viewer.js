@@ -1,3 +1,12 @@
+/*
+   Function: DV.DocumentViewer
+
+   Multiplies two integers.
+
+   Parameters:
+
+      options - 2nd class arguments
+*/
 DV.DocumentViewer = function(options) {
   this.options        = options;
   this.window         = window;

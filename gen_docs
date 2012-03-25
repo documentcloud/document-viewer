@@ -1,0 +1,2 @@
+#!/bin/sh
+naturaldocs -r -i public/javascripts/ -o FramedHTML docs -p naturaldocs -xi public/javascripts/DV/vendor/
