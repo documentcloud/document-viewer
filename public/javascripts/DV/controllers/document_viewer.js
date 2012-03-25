@@ -1,7 +1,8 @@
 /*
-   Function: DV.DocumentViewer
+   Class: DV.DocumentViewer
 
-   Multiplies two integers.
+   The main Document Viewer class. Handles the application logic for instantiating a
+   Document Viewer.
 
    Parameters:
 
@@ -75,6 +76,21 @@ DV.DocumentViewer = function(options) {
   });
 };
 
+/*
+  Method: loadModels
+
+  Instantiates all models needed by a Document Viewer.
+
+  Accessibility: Instance
+
+  Models instantiated include...
+
+  - chapters
+  - document
+  - pages
+  - annotations
+  - removedPages
+*/
 DV.DocumentViewer.prototype.loadModels = function() {
   this.models.chapters     = new DV.model.Chapters(this);
   this.models.document     = new DV.model.Document(this);
@@ -83,7 +99,17 @@ DV.DocumentViewer.prototype.loadModels = function() {
   this.models.removedPages = {};
 };
 
-// Transition to a given state ... unless we're already in it.
+/*
+  Method: open
+
+  Transition to a given state ... unless we're already in it.
+
+  Accessibility: Instance
+
+  Parameters:
+
+    state - state to propose opening.
+*/
 DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
   var continuation = _.bind(function() {
@@ -96,15 +122,39 @@ DV.DocumentViewer.prototype.open = function(state) {
   this.confirmStateChange ? this.confirmStateChange(continuation) : continuation();
 };
 
+/*
+  Method: slapIE
+
+  IE zoom hack
+
+  Accessibility: Instance
+*/
 DV.DocumentViewer.prototype.slapIE = function() {
   DV.jQuery(this.options.container).css({zoom: 0.99}).css({zoom: 1});
 };
 
+/*
+  Method: notifyChangedState
+
+  Call subscribers on state change.
+
+  Accessibility: Instance
+*/
 DV.DocumentViewer.prototype.notifyChangedState = function() {
   _.each(this.onStateChangeCallbacks, function(c) { c(); });
 };
 
-// Record a hit on this document viewer.
+/*
+  Method: recordHit
+
+  Record a hit on this document viewer.
+
+  Accessibility: Instance
+
+  Parameters:
+
+    hitUrl - Url to record hit on
+*/
 DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   var loc = window.location;
   var url = loc.protocol + '//' + loc.host + loc.pathname;
@@ -115,13 +165,49 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   DV.jQuery(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
-// jQuery object, scoped to this viewer's container.
+/*
+  Method: jQuery
+
+  jQuery object, scoped to this viewer's container.
+
+  Accessibility: Instance
+
+  Paramters:
+
+    selector - css selector
+    context - object context to call jQuery with (e.g. this)
+*/
 DV.DocumentViewer.prototype.jQuery = function(selector, context) {
   context = context || this.options.container;
   return DV.jQuery.call(DV.jQuery, selector, context);
 };
 
-// The origin function, kicking off the entire documentViewer render.
+/*
+  Method: load
+
+  The origin function, kicking off the entire documentViewer render.
+
+  Accessibility: Static
+
+  Parameters:
+
+    documentRep - url to a json document or an object
+    options - 2nd level arguments
+
+  Options:
+
+    - container - *string* - css selector for container element
+    - showSidebar - *bool* - displays or hides sidebar
+    - zoom - *string* - default zoom level
+    - width - *int* - width of document viewer in pixels
+    - height - *int* - height of document viewer in pixels
+    - afterLoad - *function()* - callback for afterLoad event
+    - search - *bool* - hide or display search input
+    - templates - *string* - url where templates need to be loaded from.
+    - showAnnotations - *bool* - hide or display annotations
+    - pdf - *bool* - hide or show pdf link
+    - text - *bool* - hide or show text tab for document
+*/
 DV.load = function(documentRep, options) {
   options = options || {};
   var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
