@@ -1,3 +1,11 @@
+/**
+ * @class  DV.PageSet
+ */
+/**
+ * @method constructor
+ * Initializes DV.PageSet
+ * @param viewer
+ */
 DV.PageSet = function(viewer){
   this.currentPage  = null;
   this.pages        = {};
@@ -5,14 +13,25 @@ DV.PageSet = function(viewer){
   this.zoomText();
 };
 
-// used to call the same method with the same params against all page instances
+/**
+ * @method execute
+ * used to call the same method with the same params against all page instances
+ *
+ * @param  {String} action
+ * @param  {Array} params
+ */
 DV.PageSet.prototype.execute = function(action,params){
   this.pages.each(function(pageInstance){
     pageInstance[action].apply(pageInstance,params);
   });
 };
 
-// build the basic page presentation layer
+/**
+ * @method buildPages
+ * build the basic page presentation layer
+ *
+ * @param  {Object} options
+ */
 DV.PageSet.prototype.buildPages = function(options) {
   options = options || {};
   var pages = this.getPages();
@@ -31,7 +50,12 @@ DV.PageSet.prototype.buildPages = function(options) {
   this.viewer.models.annotations.renderAnnotations();
 };
 
-// used to generate references for the build action
+/**
+ * @method getPages
+ * used to generate references for the build action
+ *
+ * @return {Array}
+ */
 DV.PageSet.prototype.getPages = function(){
   var _pages = [];
 
@@ -45,26 +69,40 @@ DV.PageSet.prototype.getPages = function(){
   return _pages;
 };
 
-// basic reflow to ensure zoomlevel is right, pages are in the right place and annotation limits are correct
+/**
+ * @method reflowPages
+ * basic reflow to ensure zoomlevel is right, pages are in the right place and annotation
+ * limits are correct
+ */
 DV.PageSet.prototype.reflowPages = function() {
   this.viewer.models.pages.resize();
   this.viewer.helpers.setActiveAnnotationLimits();
   this.redraw(false, true);
 };
 
-// reflow the pages without causing the container to resize or annotations to redraw
+/**
+ * @method simpleReflowPages
+ * reflow the pages without causing the container to resize or annotations to redraw
+ */
 DV.PageSet.prototype.simpleReflowPages = function(){
   this.viewer.helpers.setActiveAnnotationLimits();
   this.redraw(false, false);
 };
 
-// hide any active annotations
+/**
+ * @method cleanUp
+ * hide any active annotations
+ */
 DV.PageSet.prototype.cleanUp = function(){
   if(this.viewer.activeAnnotation){
     this.viewer.activeAnnotation.hide(true);
   }
 };
 
+/**
+ * @method zoom
+ * @param  {Object} argHash
+ */
 DV.PageSet.prototype.zoom = function(argHash){
   if (this.viewer.models.document.zoomLevel === argHash.zoomLevel) return;
 
@@ -119,7 +157,10 @@ DV.PageSet.prototype.zoom = function(argHash){
   }
 };
 
-// Zoom the text container.
+/**
+ * @method zoomText
+ * Zoom the text container.
+ */
 DV.PageSet.prototype.zoomText = function() {
   var padding = this.viewer.models.pages.getPadding();
   var width   = this.viewer.models.pages.zoomLevel;
@@ -128,7 +169,11 @@ DV.PageSet.prototype.zoomText = function() {
   this.viewer.elements.collection.css({'width' : width + padding});
 };
 
-// draw the pages
+/**
+ * @method draw
+ * draw the pages
+ * @param  {Array} pageCollection
+ */
 DV.PageSet.prototype.draw = function(pageCollection){
   for(var i = 0, pageCollectionLength = pageCollection.length; i < pageCollectionLength;i++){
     var page = this.pages[pageCollection[i].label];
@@ -136,6 +181,11 @@ DV.PageSet.prototype.draw = function(pageCollection){
   }
 };
 
+/**
+ * @method redraw
+ * @param  stopResetOfPosition
+ * @param  {Boolean} redrawAnnotations
+ */
 DV.PageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
   if (this.pages['p0']) this.pages['p0'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
   if (this.pages['p1']) this.pages['p1'].draw({ force: true, forceAnnotationRedraw : redrawAnnotations });
@@ -146,13 +196,25 @@ DV.PageSet.prototype.redraw = function(stopResetOfPosition, redrawAnnotations) {
   }
 };
 
-// set the annotation to load ahead of time
+/**
+ * @method setActiveAnnotation
+ * set the annotation to load ahead of time
+ *
+ * @param {String} annotationId
+ * @param edit
+ */
 DV.PageSet.prototype.setActiveAnnotation = function(annotationId, edit){
   this.viewer.annotationToLoadId   = annotationId;
   this.viewer.annotationToLoadEdit = edit ? annotationId : null;
 };
 
-// a funky fucking mess to jump to the annotation that is active
+/**
+ * @method showAnnotation
+ * a funky fucking mess to jump to the annotation that is active
+ *
+ * @param  {Object} argHash
+ * @param  {Object} showHash
+ */
 DV.PageSet.prototype.showAnnotation = function(argHash, showHash){
   showHash = showHash || {};
 
