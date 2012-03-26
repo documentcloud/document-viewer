@@ -1,4 +1,13 @@
+/**
+ * @class DV.Schema.events.ViewAnnotation
+ */
 DV.Schema.events.ViewAnnotation = {
+
+  /**
+   * @method next
+   * @param {Event} e
+   * @return {Boolean}
+   */
   next: function(e){
     var viewer              = this.viewer;
     var activeAnnotationId  = viewer.activeAnnotationId;
@@ -15,6 +24,11 @@ DV.Schema.events.ViewAnnotation = {
 
 
   },
+  /**
+   * @method previous
+   * @param {Event} e
+   * @return {Boolean}
+   */
   previous: function(e){
     var viewer              = this.viewer;
     var activeAnnotationId  = viewer.activeAnnotationId;
@@ -31,6 +45,11 @@ DV.Schema.events.ViewAnnotation = {
 
 
   },
+  /**
+   * @method search
+   * @param {Event} e
+   * @return {Boolean}
+   */
   search: function(e){
     e.preventDefault();
     this.viewer.open('ViewSearch');

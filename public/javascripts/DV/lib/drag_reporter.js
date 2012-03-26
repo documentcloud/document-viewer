@@ -1,3 +1,13 @@
+/**
+ * @class DV.DragReporter
+ */
+/**
+ * @method constructor
+ * @param viewer
+ * @param toWatch
+ * @param dispatcher
+ * @param {Object} argHash
+ */
 DV.DragReporter = function(viewer, toWatch, dispatcher, argHash) {
   this.viewer         = viewer;
   this.dragClassName  = 'DV-dragging';
@@ -16,12 +26,21 @@ DV.DragReporter = function(viewer, toWatch, dispatcher, argHash) {
   this.setBinding();
 };
 
+/**
+ * @method shouldIgnore
+ * @param  {Event} e
+ * @return {Object}
+ */
 DV.DragReporter.prototype.shouldIgnore = function(e) {
   if (!this.ignoreSelector) return false;
   var el = this.viewer.$(e.target);
   return el.parents().is(this.ignoreSelector) || el.is(this.ignoreSelector);
 };
 
+/**
+ * @method mouseUpReporter
+ * @param  {Event} e
+ */
 DV.DragReporter.prototype.mouseUpReporter     = function(e){
   if (this.shouldIgnore(e)) return true;
   e.preventDefault();
@@ -29,30 +48,50 @@ DV.DragReporter.prototype.mouseUpReporter     = function(e){
   this.stop();
 };
 
+/**
+ * @method oldPositionUpdater
+ */
 DV.DragReporter.prototype.oldPositionUpdater   = function(){
   this.oldPageY = this.pageY;
 };
 
+/**
+ * @method stop
+ */
 DV.DragReporter.prototype.stop         = function(){
   this.toWatch.removeClass(this.dragClassName);
   this.toWatch.unbind('mousemove');
 };
 
+/**
+ * @method setBinding
+ */
 DV.DragReporter.prototype.setBinding         = function(){
   this.toWatch.mouseup(this.boundMouseUpReporter);
   this.toWatch.mousedown(this.boundMouseDownReporter);
 };
 
+/**
+ * @method unBind
+ */
 DV.DragReporter.prototype.unBind           = function(){
   this.toWatch.unbind('mouseup',this.boundMouseUpReporter);
   this.toWatch.unbind('mousedown',this.boundMouseDownReporter);
 };
 
+/**
+ * @method destroy
+ */
 DV.DragReporter.prototype.destroy           = function(){
   this.unBind();
   this.toWatch = null;
 };
 
+/**
+ * @method mouseDownReporter
+ * @param  {Event} e
+ * @return {Boolean}
+ */
 DV.DragReporter.prototype.mouseDownReporter   = function(e){
    if (this.shouldIgnore(e)) return true;
   e.preventDefault();
@@ -66,6 +105,10 @@ DV.DragReporter.prototype.mouseDownReporter   = function(e){
   this.toWatch.mousemove(this.boundReporter);
 };
 
+/**
+ * @method mouseMoveReporter
+ * @param  {Event} e
+ */
 DV.DragReporter.prototype.mouseMoveReporter     = function(e){
   if (this.shouldIgnore(e)) return true;
   e.preventDefault();

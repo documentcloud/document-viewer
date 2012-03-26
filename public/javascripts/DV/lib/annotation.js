@@ -1,3 +1,10 @@
+/**
+ * @class  DV.Annotation
+ */
+/**
+ * @method constructor
+ * @param {Object} argHash
+ */
 DV.Annotation = function(argHash){
   this.position     = { top: argHash.top, left: argHash.left };
   this.dimensions   = { width: argHash.width, height: argHash.height };
@@ -25,7 +32,10 @@ DV.Annotation = function(argHash){
   }
 };
 
-// Add annotation to page
+/**
+ * @method add
+ * Add annotation to page
+ */
 DV.Annotation.prototype.add = function(){
   if(this.type === 'page'){
     this.annotationEl = this.renderedHTML.insertBefore(this.annotationContainerEl);
@@ -47,7 +57,10 @@ DV.Annotation.prototype.add = function(){
   }
 };
 
-// Jump to next annotation
+/**
+ * @method next
+ * Jump to next annotation
+ */
 DV.Annotation.prototype.next = function(){
   this.hide.preventRemovalOfCoverClass = true;
 
@@ -59,7 +72,10 @@ DV.Annotation.prototype.next = function(){
   this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.top });
 };
 
-// Jump to previous annotation
+/**
+ * @method previous
+ * Jump to previous annotation
+ */
 DV.Annotation.prototype.previous = function(){
   this.hide.preventRemovalOfCoverClass = true;
   var annotation = this.viewer.models.annotations.getPreviousAnnotation(this.id);
@@ -69,7 +85,11 @@ DV.Annotation.prototype.previous = function(){
   this.page.set.showAnnotation({ index: annotation.index, id: annotation.id, top: annotation.top });
 };
 
-// Show annotation
+/**
+ * @method show
+ * Show annotation
+ * @param {Object} argHash
+ */
 DV.Annotation.prototype.show = function(argHash) {
 
   if (this.viewer.activeAnnotation && this.viewer.activeAnnotation.id != this.id) {
@@ -94,7 +114,11 @@ DV.Annotation.prototype.show = function(argHash) {
   }
 };
 
-// Hide annotation
+/**
+ * @method hide
+ * Hide annotation
+ * @param  {Boolean} forceOverlayHide
+ */
 DV.Annotation.prototype.hide = function(forceOverlayHide){
   var pageNumber = parseInt(this.viewer.elements.currentPage.text(),10);
 
@@ -130,7 +154,11 @@ DV.Annotation.prototype.hide = function(forceOverlayHide){
   }
 };
 
-// Toggle annotation
+/**
+ * @method toggle
+ * Toggle annotation
+ * @param  {Object} argHash
+ */
 DV.Annotation.prototype.toggle = function(argHash){
   if (this.viewer.activeAnnotation && (this.viewer.activeAnnotation != this)){
     this.viewer.activeAnnotation.hide();
@@ -146,7 +174,10 @@ DV.Annotation.prototype.toggle = function(argHash){
   }
 };
 
-// Show hover annotation state
+/**
+ * @method drawConnector
+ * Show hover annotation state
+ */
 DV.Annotation.prototype.drawConnector = function(){
   if(this.active != true){
     this.viewer.elements.window.addClass('DV-annotationActivated');
@@ -154,7 +185,11 @@ DV.Annotation.prototype.drawConnector = function(){
   }
 };
 
-// Remove hover annotation state
+/**
+ * @method removeConnector
+ * Remove hover annotation state
+ * @param force Doesn't appear to be used
+ */
 DV.Annotation.prototype.removeConnector = function(force){
   if(this.active != true){
     this.viewer.elements.window.removeClass('DV-annotationActivated');
@@ -162,13 +197,19 @@ DV.Annotation.prototype.removeConnector = function(force){
   }
 };
 
-// Show edit controls
+/**
+ * @method showEdit
+ * Show edit controls
+ */
 DV.Annotation.prototype.showEdit = function() {
   this.annotationEl.addClass('DV-editing');
   this.viewer.$('.DV-annotationTitleInput', this.annotationEl).focus();
 };
 
-// Remove the annotation from the page
+/**
+ * @method remove
+ * Remove the annotation from the page
+ */
 DV.Annotation.prototype.remove = function(){
   DV.jQuery('#DV-annotation-'+this.id).remove();
 };

@@ -1,4 +1,12 @@
+/**
+ * @class  DV.Schema.events
+ */
 _.extend(DV.Schema.events, {
+  /**
+   * @method handleNavigation
+   * @param  {Event} e
+   * @return {Boolean} Can return a Boolean or a string for a class.
+   */
   handleNavigation: function(e){
     var el          = this.viewer.$(e.target);
     var triggerEl   = el.closest('.DV-trigger');
