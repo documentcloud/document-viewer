@@ -168,21 +168,21 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
  * @param  {String}  documentRep url to a json document or an object
  * @param  {Object}  options     2nd level arguments
  *
- * Options:
- *
- * - container        **string**    css selector for container element
- * - showSidebar      **bool**      displays or hides sidebar
- * - zoom             **string**    default zoom level
- * - width            **int**       width of document viewer in pixels
- * - height           **int**       height of document viewer in pixels
- * - afterLoad        **function**  callback for afterLoad event
- * - search           **bool**      hide or display search input
- * - templates        **string**    url where templates need to be loaded from
- * - showAnnotations  **bool**     hide or display annotations
- * - pdf              **bool**      hide or show pdf link
- * - text             **bool**      hide or show text tab for document
- *
  * @return  {Object}  instance of viewer
+ */
+/**
+ * @cfg  options  object containing optional arguments
+ * @cfg  options.container  css selector for container element
+ * @cfg  options.showSidebar  displays or hides sidebar
+ * @cfg  options.zoom  default zoom level
+ * @cfg  options.width  width of document viewer in pixels
+ * @cfg  options.height  height of document viewer in pixels
+ * @cfg  options.afterLoad  callback for afterLoad event
+ * @cfg  options.search  hide or display search input
+ * @cfg  options.templates  url where templates need to be loaded from
+ * @cfg  options.showAnnotations  hide or display annotations
+ * @cfg  options.pdf  hide or show pdf link
+ * @cfg  options.text  hide or show text tab for document
  */
 DV.load = function(documentRep, options) {
   options = options || {};
