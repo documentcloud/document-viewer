@@ -1,5 +1,12 @@
+/**
+ * @class  DV.Schema.states
+ * All of the states.
+ */
 DV.Schema.states = {
 
+  /**
+   * @method InitialLoad
+   */
   InitialLoad: function(){
     // If we're in an unsupported browser ... bail.
     if (this.helpers.unsupportedBrowser()) return;
@@ -36,6 +43,9 @@ DV.Schema.states = {
     _.defer(_.bind(this.helpers.autoZoomPage, this.helpers));
   },
 
+  /**
+   * @method ViewAnnotation
+   */
   ViewAnnotation: function(){
     this.helpers.reset();
     this.helpers.ensureAnnotationImages();
@@ -52,6 +62,9 @@ DV.Schema.states = {
     return true;
   },
 
+  /**
+   * @method ViewDocument
+   */
   ViewDocument: function(){
     this.helpers.reset();
     this.helpers.addObserver('drawPages');
@@ -67,12 +80,19 @@ DV.Schema.states = {
     return true;
   },
 
+  /**
+   * @method ViewEntity
+   */
   ViewEntity: function(name, offset, length) {
     this.helpers.reset();
     this.helpers.toggleContent('viewSearch');
     this.helpers.showEntity(name, offset, length);
   },
 
+  /**
+   * @method ViewSearch
+   * @return {Boolean}
+   */
   ViewSearch: function(){
     this.helpers.reset();
 
@@ -90,6 +110,10 @@ DV.Schema.states = {
     return true;
   },
 
+  /**
+   * @method ViewText
+   * @return {Boolean}
+   */
   ViewText: function(){
     this.helpers.reset();
     this.acceptInput.allow();
@@ -99,6 +123,10 @@ DV.Schema.states = {
     return true;
   },
 
+  /**
+   * @method ViewThumbnails
+   * @return {Boolean}
+   */
   ViewThumbnails: function() {
     this.helpers.reset();
     this.helpers.toggleContent('viewThumbnails');
