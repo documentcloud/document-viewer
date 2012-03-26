@@ -309,7 +309,7 @@ DV.Api.prototype = {
    * @method redraw
    * Redraw the UI. Call redraw(true) to also redraw annotations and pages.
    *
-   * @param  {Bool} redrawAll
+   * @param  {Boolean} redrawAll
    */
   redraw : function(redrawAll) {
     if (redrawAll) {
@@ -394,60 +394,111 @@ DV.Api.prototype = {
     this.viewer.onStateChangeCallbacks.push(callback);
   },
 
+  /**
+   * @method getState
+   * @return {String}
+   */
   getState : function() {
     return this.viewer.state;
   },
 
-  // set the state. This takes "ViewDocument," "ViewThumbnails", "ViewText"
+  /**
+   * @method setState
+   * set the state. This takes "ViewDocument," "ViewThumbnails", "ViewText"
+   *
+   * @param {String} state
+   */
   setState : function(state) {
     this.viewer.open(state);
   },
 
+  /**
+   * @method resetRemovedPages
+   */
   resetRemovedPages : function() {
     this.viewer.models.document.resetRemovedPages();
   },
 
+  /**
+   * @method addPageToRemovedPages
+   * @param page
+   */
   addPageToRemovedPages : function(page) {
     this.viewer.models.document.addPageToRemovedPages(page);
   },
 
+  /**
+   * @method removePageFromRemovedPages
+   * @param  page
+   */
   removePageFromRemovedPages : function(page) {
     this.viewer.models.document.removePageFromRemovedPages(page);
   },
 
+  /**
+   * @method resetReorderedPages
+   */
   resetReorderedPages : function() {
     this.viewer.models.document.redrawReorderedPages();
   },
 
+  /**
+   * @method reorderPages
+   * @param  pageOrder
+   * @param  options
+   */
   reorderPages : function(pageOrder, options) {
     var model = this.getModelId();
     this.viewer.models.document.reorderPages(model, pageOrder, options);
   },
 
-  // Request the loading of an external JS file.
+  /**
+   * @method loadJS
+   * Request the loading of an external JS file.
+   *
+   * @param  {String}   url
+   * @param  {Function} callback
+   */
   loadJS : function(url, callback) {
     DV.jQuery.getScript(url, callback);
   },
 
-  // Set first/last styles for tabs.
+  /**
+   * @method roundTabCorners
+   * Set first/last styles for tabs.
+   */
   roundTabCorners : function() {
     var tabs = this.viewer.$('.DV-views > div:visible');
     tabs.first().addClass('DV-first');
     tabs.last().addClass('DV-last');
   },
 
-  // Register hooks into DV's hash history
+  /**
+   * @method registerHashListener
+   * Register hooks into DV's hash history
+   *
+   * @param             matcher
+   * @param  {Function} callback
+   */
   registerHashListener : function(matcher, callback) {
     this.viewer.history.register(matcher, callback);
   },
 
-  // Clobber DV's existing history hooks
+  /**
+   * @method clearHashListeners
+   * Clobber DV's existing history hooks
+   */
   clearHashListeners : function() {
     this.viewer.history.defaultCallback = null;
     this.viewer.history.handlers = [];
   },
 
-  // Unload the viewer.
+  /**
+   * @method unload
+   * Unload the viewer.
+   *
+   * @param  viewer
+   */
   unload: function(viewer) {
     this.viewer.helpers.unbindEvents();
     DV.jQuery('.DV-docViewer', this.viewer.options.container).remove();
@@ -456,47 +507,76 @@ DV.Api.prototype = {
   },
 
   // ---------------------- Enter/Leave Edit Modes -----------------------------
-
+  /**
+   * @method enterRemovePagesMode
+   */
   enterRemovePagesMode : function() {
     this.viewer.openEditor = 'removePages';
   },
 
+  /**
+   * @method leaveRemovePagesMode
+   */
   leaveRemovePagesMode : function() {
     this.viewer.openEditor = null;
   },
 
+  /**
+   * @method enterAddPagesMode
+   */
   enterAddPagesMode : function() {
     this.viewer.openEditor = 'addPages';
   },
 
+  /**
+   * @method leaveAddPagesMode
+   */
   leaveAddPagesMode : function() {
     this.viewer.openEditor = null;
   },
 
+  /**
+   * @methos enterReplacePagesMode
+   */
   enterReplacePagesMode : function() {
     this.viewer.openEditor = 'replacePages';
   },
 
+  /**
+   * @method leaveReplacePagesMode
+   */
   leaveReplacePagesMode : function() {
     this.viewer.openEditor = null;
   },
 
+  /**
+   * @method enterReorderPagesMode
+   */
   enterReorderPagesMode : function() {
     this.viewer.openEditor = 'reorderPages';
     this.viewer.elements.viewer.addClass('DV-reorderPages');
   },
 
+  /**
+   * @method leaveReorderPagesMode
+   */
   leaveReorderPagesMode : function() {
     this.resetReorderedPages();
     this.viewer.openEditor = null;
     this.viewer.elements.viewer.removeClass('DV-reorderPages');
   },
 
+  /**
+   * @method enterEditPageTextMode
+   */
   enterEditPageTextMode : function() {
     this.viewer.openEditor = 'editText';
     this.viewer.events.loadText();
   },
 
+  /**
+   * @method leaveEditPageTextMode
+   */
   leaveEditPageTextMode : function() {
     this.viewer.openEditor = null;
     this.resetPageText();
