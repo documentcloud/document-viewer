@@ -5,6 +5,7 @@ DV.Schema.events.ViewAnnotation = {
 
   /**
    * @method next
+   * @static
    * @param {Event} e
    * @return {Boolean}
    */
@@ -26,6 +27,7 @@ DV.Schema.events.ViewAnnotation = {
   },
   /**
    * @method previous
+   * @static
    * @param {Event} e
    * @return {Boolean}
    */
@@ -47,6 +49,7 @@ DV.Schema.events.ViewAnnotation = {
   },
   /**
    * @method search
+   * @static
    * @param {Event} e
    * @return {Boolean}
    */

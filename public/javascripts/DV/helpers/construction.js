@@ -1,11 +1,24 @@
+/**
+ * @class DV.Schema.helpers
+ */
  // Renders the navigation sidebar for chapters and annotations.
 _.extend(DV.Schema.helpers, {
 
+  /**
+   * @method showAnnotations
+   * @static
+   *
+   * @return {Array}
+   */
   showAnnotations : function() {
     if (this.viewer.options.showAnnotations === false) return false;
     return _.size(this.models.annotations.byId) > 0;
   },
 
+  /**
+   * @method renderViewer
+   * @static
+   */
   renderViewer: function(){
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
@@ -62,14 +75,22 @@ _.extend(DV.Schema.helpers, {
     containerEl.html(JST.viewer(viewerOptions));
   },
 
-  // If there is no description, no navigation, and no sections, tighten up
-  // the sidebar.
+  /**
+   * @method displayNavigation
+   * @static
+   * If there is no description, no navigation, and no sections, tighten up
+   * the sidebar.
+   */
   displayNavigation : function() {
     var doc = this.viewer.schema.document;
     var missing = (!doc.description && !_.size(this.viewer.schema.data.annotationsById) && !this.viewer.schema.data.sections.length);
     this.viewer.$('.DV-supplemental').toggleClass('DV-noNavigation', missing);
   },
 
+  /**
+   * @method renderSpecificPageCss
+   * @static
+   */
   renderSpecificPageCss : function() {
     var classes = [];
     for (var i = 1, l = this.models.document.totalPages; i <= l; i++) {
@@ -80,6 +101,12 @@ _.extend(DV.Schema.helpers, {
     DV.jQuery("head").append(stylesheet);
   },
 
+  /**
+   * @method renderNavigation
+   * @static
+   *
+   * @return {String}
+   */
   renderNavigation : function() {
     var me = this;
     var chapterViews = [], bolds = [], expandIcons = [], expanded = [], navigationExpander = JST.navigationExpander({}),nav=[],notes = [],chapters = [];
@@ -167,8 +194,12 @@ _.extend(DV.Schema.helpers, {
     chaptersContainer = null;
   },
 
-  // Hide or show all of the components on the page that may or may not be
-  // present, depending on what the document provides.
+  /**
+   * @method renderComponents
+   * Hide or show all of the components on the page that may or may not be
+   * present, depending on what the document provides.
+   * @static
+   */
   renderComponents : function() {
     // Hide the overflow of the body, unless we're positioned.
     var containerEl = DV.jQuery(this.viewer.options.container);
@@ -258,7 +289,10 @@ _.extend(DV.Schema.helpers, {
     this.models.document.setPageIndex(this.models.document.currentIndex());
   },
 
-  // Reset the view state to a baseline, when transitioning between views.
+  /**
+   * @method reset
+   * Reset the view state to a baseline, when transitioning between views.
+   */
   reset : function() {
     this.resetNavigationState();
     this.cleanUpSearch();

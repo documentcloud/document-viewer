@@ -4,6 +4,7 @@
 DV.Schema.events.ViewDocument = {
   /**
    * @method next
+   * @static
    */
   next: function(){
     var nextPage = this.models.document.nextPage();
@@ -13,6 +14,7 @@ DV.Schema.events.ViewDocument = {
   },
   /**
    * @method previous
+   * @static
    * @param {Event} e
    */
   previous: function(e){
@@ -23,6 +25,7 @@ DV.Schema.events.ViewDocument = {
   },
   /**
    * @method search
+   * @static
    * @param {Event} e
    */
   search: function(e){

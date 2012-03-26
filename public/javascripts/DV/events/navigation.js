@@ -4,6 +4,7 @@
 _.extend(DV.Schema.events, {
   /**
    * @method handleNavigation
+   * @static
    * @param  {Event} e
    * @return {Boolean} Can return a Boolean or a string for a class.
    */

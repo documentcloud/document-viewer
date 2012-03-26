@@ -6,6 +6,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewDocumentPage
    * #document/p[pageID]
+   * @static
    *
    * @param  {Number} page
    */
@@ -23,6 +24,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeLegacyViewDocumentPage
    * #p[pageID]
+   * @static
    *
    * @param {Number} page
    */
@@ -34,6 +36,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewDocumentAnnotation
    * #document/p[pageID]/a[annotationID]
+   * @static
    *
    * @param  {Number} page
    * @param  {Number} annotation
@@ -55,6 +58,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewAnnotationAnnotation
    * #annotation/a[annotationID]
+   * @static
    *
    * @param  {Number} annotation
    */
@@ -73,6 +77,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeDefault
    * Default route if all else fails
+   * @static
    */
   handleHashChangeDefault: function(){
     this.viewer.pageSet.cleanUp();
@@ -89,6 +94,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewText
    * #text/p[pageID]
+   * @static
    *
    * @param {Number} page
    */
@@ -104,6 +110,7 @@ _.extend(DV.Schema.events, {
 
   /**
    * @method handleHashChangeViewPages
+   * @static
    */
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
@@ -113,6 +120,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewSearchRequest
    * #search/[searchString]
+   * @static
    *
    * @param  {Number} page
    * @param  {String} query
@@ -130,6 +138,7 @@ _.extend(DV.Schema.events, {
   /**
    * @method handleHashChangeViewEntity
    * #entity/p[pageID]/[searchString]/[offset]:[length]
+   * @static
    *
    * @param  {Number} page
    * @param  {String} name

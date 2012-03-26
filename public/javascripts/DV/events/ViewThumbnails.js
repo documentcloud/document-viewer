@@ -4,6 +4,7 @@
 DV.Schema.events.ViewThumbnails = {
   /**
    * @method next
+   * @static
    */
   next: function(){
     var nextPage = this.models.document.nextPage();
@@ -11,6 +12,7 @@ DV.Schema.events.ViewThumbnails = {
   },
   /**
    * @method previous
+   * @static
    */
   previous: function(e){
     var previousPage = this.models.document.previousPage();
@@ -18,6 +20,7 @@ DV.Schema.events.ViewThumbnails = {
   },
   /**
    * @method search
+   * @static
    * @return {Boolean}
    */
   search: function(e){

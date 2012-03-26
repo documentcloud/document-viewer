@@ -7,6 +7,7 @@ DV.Schema.events = {
   /**
    * @method zoom
    * Change zoom level and causes a reflow and redraw of pages.
+   * @static
    *
    * @param {Number} level
    * @return {Boolean}
@@ -26,6 +27,7 @@ DV.Schema.events = {
   /**
    * @method drawPages
    * Draw (or redraw) the visible pages on the screen.
+   * @static
    */
   drawPages: function() {
     if (this.viewer.state != 'ViewDocument') return;
@@ -46,6 +48,7 @@ DV.Schema.events = {
   /**
    * @method drawPageAt
    * Draw the page at the given index.
+   * @static
    *
    * @param pageIds
    * @param  {Number} index
@@ -66,6 +69,7 @@ DV.Schema.events = {
 
   /**
    * @method check
+   * @static
    */
   check: function(){
     var viewer = this.viewer;
@@ -80,6 +84,7 @@ DV.Schema.events = {
 
   /**
    * @method loadText
+   * @static
    * @param  {Number} pageIndex
    * @param  {Function} afterLoad
    * @return {String}
@@ -129,6 +134,7 @@ DV.Schema.events = {
 
   /**
    * @method resetTracker
+   * @static
    */
   resetTracker: function(){
     this.viewer.activeAnnotation = null;
@@ -138,6 +144,7 @@ DV.Schema.events = {
 
   /**
    * @method trackAnnotation
+   * @static
    */
   trackAnnotation: function(){
     var viewer          = this.viewer;

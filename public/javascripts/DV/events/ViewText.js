@@ -4,6 +4,7 @@
 DV.Schema.events.ViewText = {
   /**
    * @method next
+   * @static
    * @param  {Event} e
    */
   next: function(e){
@@ -12,6 +13,7 @@ DV.Schema.events.ViewText = {
   },
   /**
    * @method previous
+   * @static
    * @param  {Event} e
    */
   previous: function(e){
@@ -20,6 +22,7 @@ DV.Schema.events.ViewText = {
   },
   /**
    * @method search
+   * @static
    * @param  {Event} e
    * @return {Boolean}
    */

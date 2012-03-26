@@ -4,6 +4,7 @@
 DV.Schema.events.ViewSearch = {
   /**
    * @method next
+   * @static
    * @param  {Event} e
    */
   next: function(e){
@@ -14,6 +15,7 @@ DV.Schema.events.ViewSearch = {
   },
   /**
    * @method previous
+   * @static
    * @param  {Event} e
    */
   previous: function(e){
@@ -24,6 +26,7 @@ DV.Schema.events.ViewSearch = {
   },
   /**
    * @method search
+   * @static
    * @param  {Event} e
    * @return {Boolean}
    */
