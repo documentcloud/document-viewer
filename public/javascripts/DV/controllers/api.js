@@ -1,78 +1,148 @@
-// The API references it's viewer.
+/**
+ * @class DV.Api
+ * The API references it's viewer.
+ *
+ * @param {String} viewer The API references it's viewer.
+ */
 DV.Api = function(viewer) {
   this.viewer = viewer;
 };
 
-// Set up the API class.
+// Set up the API controller class.
 DV.Api.prototype = {
-
-  // Return the current page of the document.
+  /**
+   * @method currentPage
+   * Return the current page of the document.
+   *
+   * @return {Number}
+   */
   currentPage : function() {
     return this.viewer.models.document.currentPage();
   },
 
-  // Set the current page of the document.
+  /**
+   * @method setCurrentPage
+   * Set the current page of the document.
+   *
+   * @param {Number} page
+   */
   setCurrentPage : function(page) {
     this.viewer.helpers.jump(page - 1);
   },
 
-  // Register a callback for when the page is changed.
+  /**
+   * @method onPageChange
+   * Register a callback for when the page is changed.
+   *
+   * @param  {Function} callback
+   */
   onPageChange : function(callback) {
     this.viewer.models.document.onPageChangeCallbacks.push(callback);
   },
 
-  // Return the page number for one of the three physical page DOM elements, by id:
+  /**
+   * @method getPageNumberForId
+   * Return the page number for one of the three physical page DOM elements, by id.
+   *
+   * @param  {String} id
+   * @return {Number}
+   */
   getPageNumberForId : function(id) {
     var page = this.viewer.pageSet.pages[id];
     return page.index + 1;
   },
 
-  // Get the document's canonical schema
+  /**
+   * @method getSchema
+   * Get the document's canonical schema
+   *
+   * @return {Object}
+   */
   getSchema : function() {
     return this.viewer.schema.document;
   },
 
-  // Get the document's canonical ID.
+  /**
+   * @method getId
+   * Get the document's canonical ID.
+   *
+   * @return {string}
+   */
   getId : function() {
     return this.viewer.schema.document.id;
   },
 
-  // Get the document's numerical ID.
+  /**
+   * @method getModelId
+   * Get the document's numerical ID.
+   *
+   * @return {Number}
+   */
   getModelId : function() {
     return parseInt(this.getId(), 10);
   },
 
-  // Return the current zoom factor of the document.
+  /**
+   * @method currentZoom
+   * Return the current zoom factor of the document.
+   *
+   * @return {Number}
+   */
   currentZoom : function() {
     var doc = this.viewer.models.document;
     return doc.zoomLevel / doc.ZOOM_RANGES[1];
   },
 
-  // Return the current zoom factor of the document relative to the base zoom.
+  /**
+   * @method relativeZoom
+   * Return the current zoom factor of the document relative to the base zoom.
+   *
+   * @return {number}
+   */
   relativeZoom : function() {
     var models = this.viewer.models;
     var zoom   = this.currentZoom();
     return zoom * (models.document.ZOOM_RANGES[1] / models.pages.BASE_WIDTH);
   },
 
-  // Return the total number of pages in the document.
+  /**
+   * @method numberOfPages
+   * Return the total number of pages in the document.
+   *
+   * @return {Number}
+   */
   numberOfPages : function() {
     return this.viewer.models.document.totalPages;
   },
 
-  // Return the name of the contributor, if available.
+  /**
+   * @method getContributor
+   * Return the name of the contributor, if available.
+   *
+   * @return {String}
+   */
   getContributor : function() {
     return this.viewer.schema.document.contributor;
   },
 
-  // Return the name of the contributing organization, if available.
+  /**
+   * @method getContributorOrganization
+   * Return the name of the contributing organization, if available.
+   *
+   * @return {String}
+   */
   getContributorOrganization : function() {
     return this.viewer.schema.document.contributor_organization;
   },
 
-  // Change the documents' sections, re-rendering the navigation. "sections"
-  // should be an array of sections in the canonical format:
-  // {title: "Chapter 1", pages: "1-12"}
+  /**
+   * @method setSections
+   * Change the documents' sections, re-rendering the navigation. "sections"
+   * should be an array of sections in the canonical format:
+   * {title: "Chapter 1", pages: "1-12"}
+   *
+   * @param {Array} sections
+   */
   setSections : function(sections) {
     sections = _.sortBy(sections, function(s){ return s.page; });
     this.viewer.schema.data.sections = sections;
@@ -80,17 +150,32 @@ DV.Api.prototype = {
     this.redraw();
   },
 
-  // Get a list of every section in the document.
+  /**
+   * @method getSections
+   * Get a list of every section in the document.
+   *
+   * @return {Array}
+   */
   getSections : function() {
     return _.clone(this.viewer.schema.data.sections || []);
   },
 
-  // Get the document's description.
+  /**
+   * @method getDescription
+   * Get the document's description.
+   *
+   * @return {String}
+   */
   getDescription : function() {
     return this.viewer.schema.document.description;
   },
 
-  // Set the document's description and update the sidebar.
+  /**
+   * @method setDescription
+   * Set the document's description and update the sidebar.
+   *
+   * @param {String} desc
+   */
   setDescription : function(desc) {
     this.viewer.schema.document.description = desc;
     this.viewer.$('.DV-description').remove();
@@ -98,57 +183,107 @@ DV.Api.prototype = {
     this.viewer.helpers.displayNavigation();
   },
 
-  // Get the document's related article url.
+  /**
+   * @method getRelatedArticle
+   * Get the document's related article url.
+   *
+   * @return {String}
+   */
   getRelatedArticle : function() {
     return this.viewer.schema.document.resources.related_article;
   },
 
-  // Set the document's related article url.
+  /**
+   * @method setRelatedArticle
+   * Set the document's related article url.
+   *
+   * @param {String} url
+   */
   setRelatedArticle : function(url) {
     this.viewer.schema.document.resources.related_article = url;
     this.viewer.$('.DV-storyLink a').attr({href : url});
     this.viewer.$('.DV-storyLink').toggle(!!url);
   },
 
-  // Get the document's published url.
+  /**
+   * @method getPublishedUrl
+   * Get the document's published url.
+   *
+   * @return {String}
+   */
   getPublishedUrl : function() {
     return this.viewer.schema.document.resources.published_url;
   },
 
-  // Set the document's published url.
+  /**
+   * @method setPublishedUrl
+   * Set the document's published url.
+   *
+   * @param {String} url
+   */
   setPublishedUrl : function(url) {
     this.viewer.schema.document.resources.published_url = url;
   },
 
-  // Get the document's title.
+  /**
+   * @method getTitle
+   * Get the document's title.
+   *
+   * @return {String}
+   */
   getTitle : function() {
     return this.viewer.schema.document.title;
   },
 
-  // Set the document's title.
+  /**
+   * @method setTitle
+   * Set the document's title.
+   *
+   * @param {String} title
+   */
   setTitle : function(title) {
     this.viewer.schema.document.title = title;
     document.title = title;
   },
 
+  /**
+   * @method getSource
+   */
   getSource : function() {
     return this.viewer.schema.document.source;
   },
 
+  /**
+   * @method setSource
+   */
   setSource : function(source) {
     this.viewer.schema.document.source = source;
   },
 
+  /**
+   * @method getPageText
+   */
   getPageText : function(pageNumber) {
     return this.viewer.schema.text[pageNumber - 1];
   },
 
-  // Set the page text for the given page of a document in the local cache.
+  /**
+   * @method setPageText
+   * Set the page text for the given page of a document in the local cache.
+   *
+   * @param {String} text
+   * @param {Number} pageNumber
+   */
   setPageText : function(text, pageNumber) {
     this.viewer.schema.text[pageNumber - 1] = text;
   },
 
-  // Reset all modified page text to the original values from the server cache.
+  /**
+   * @method resetPageText
+   * Reset all modified page text to the original values from the server cache.
+   *
+   * @param  {String} overwriteOriginal
+   */
   resetPageText : function(overwriteOriginal) {
     var self = this;
     var pageText = this.viewer.schema.text;
@@ -170,7 +305,12 @@ DV.Api.prototype = {
     }
   },
 
-  // Redraw the UI. Call redraw(true) to also redraw annotations and pages.
+  /**
+   * @method redraw
+   * Redraw the UI. Call redraw(true) to also redraw annotations and pages.
+   *
+   * @param  {Bool} redrawAll
+   */
   redraw : function(redrawAll) {
     if (redrawAll) {
       this.viewer.models.annotations.renderAnnotations();
@@ -185,19 +325,31 @@ DV.Api.prototype = {
     }
   },
 
+  /**
+   * @method getAnnotationsBySortOrder
+   */
   getAnnotationsBySortOrder : function() {
     return this.viewer.models.annotations.sortAnnotations();
   },
 
+  /**
+   * @method getAnnotationsByPageIndex
+   */
   getAnnotationsByPageIndex : function(idx) {
     return this.viewer.models.annotations.getAnnotations(idx);
   },
 
+  /**
+   * @method getAnnotation
+   */
   getAnnotation : function(aid) {
     return this.viewer.models.annotations.getAnnotation(aid);
   },
 
-  // Add a new annotation to the document, prefilled to any extent.
+  /**
+   * @method addAnnotation
+   * Add a new annotation to the document, prefilled to any extent.
+   */
   addAnnotation : function(anno) {
     anno = this.viewer.schema.loadAnnotation(anno);
     this.viewer.models.annotations.sortAnnotations();
@@ -206,20 +358,38 @@ DV.Api.prototype = {
     return anno;
   },
 
-  // Register a callback for when an annotation is saved.
+  /**
+   * @method onAnnotationSave
+   * Register a callback for when an annotation is saved.
+   *
+   * @param  {Function} callback
+   */
   onAnnotationSave : function(callback) {
     this.viewer.models.annotations.saveCallbacks.push(callback);
   },
 
-  // Register a callback for when an annotation is deleted.
+  /**
+   * @method onAnnotationDelete
+   * Register a callback for when an annotation is deleted.
+   *
+   * @param  {Function} callback
+   */
   onAnnotationDelete : function(callback) {
     this.viewer.models.annotations.deleteCallbacks.push(callback);
   },
 
+  /**
+   * @method setConfirmStateChange
+   * @param {Function} callback
+   */
   setConfirmStateChange : function(callback) {
     this.viewer.confirmStateChange = callback;
   },
 
+  /**
+   * @method onChangeState
+   * @param  {Function} callback
+   */
   onChangeState : function(callback) {
     this.viewer.onStateChangeCallbacks.push(callback);
   },

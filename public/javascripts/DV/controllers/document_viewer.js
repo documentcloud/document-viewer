@@ -1,7 +1,7 @@
 /**
  * @class DV.DocumentViewer
- * The main Document Viewer class. Handles the application logic for instantiating a
- * Document Viewer.
+ * The main Document Viewer controller class. Handles the application logic for
+ * instantiating a Document Viewer.
  */
 /**
  * @method  constructor
