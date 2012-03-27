@@ -6,6 +6,7 @@ DV.Schema.states = {
 
   /**
    * @method InitialLoad
+   * @static
    */
   InitialLoad: function(){
     // If we're in an unsupported browser ... bail.
@@ -45,6 +46,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewAnnotation
+   * @static
    */
   ViewAnnotation: function(){
     this.helpers.reset();
@@ -64,6 +66,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewDocument
+   * @static
    */
   ViewDocument: function(){
     this.helpers.reset();
@@ -82,6 +85,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewEntity
+   * @static
    */
   ViewEntity: function(name, offset, length) {
     this.helpers.reset();
@@ -91,6 +95,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewSearch
+   * @static
    * @return {Boolean}
    */
   ViewSearch: function(){
@@ -112,6 +117,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewText
+   * @static
    * @return {Boolean}
    */
   ViewText: function(){
@@ -125,6 +131,7 @@ DV.Schema.states = {
 
   /**
    * @method ViewThumbnails
+   * @static
    * @return {Boolean}
    */
   ViewThumbnails: function() {

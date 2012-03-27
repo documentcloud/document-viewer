@@ -291,6 +291,7 @@ _.extend(DV.Schema.helpers, {
 
   /**
    * @method reset
+   * @static
    * Reset the view state to a baseline, when transitioning between views.
    */
   reset : function() {
