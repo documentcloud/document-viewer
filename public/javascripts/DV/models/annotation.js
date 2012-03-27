@@ -1,3 +1,11 @@
+/**
+ * @class  DV.model.Annotations
+ */
+/**
+ * @method constructor
+ * Initializes DV.model.Annotations
+ * @param {Object} viewer instance of viewer
+ */
 DV.model.Annotations = function(viewer) {
   this.LEFT_MARGIN              = 25;
   this.PAGE_NOTE_FUDGE          = window.dc && dc.account && (dc.account.isOwner || dc.account.isReviewer) ? 46 : 26;
@@ -13,8 +21,14 @@ DV.model.Annotations = function(viewer) {
 
 DV.model.Annotations.prototype = {
 
-  // Render an annotation model to HTML, calculating all of the dimenstions
-  // and offsets, and running a template function.
+  /**
+   * @method render
+   * Render an annotation model to HTML, calculating all of the dimenstions
+   * and offsets, and running a template function.
+   *
+   * @param  {Object} annotation
+   * @return {String} template
+   */
   render: function(annotation){
     var documentModel             = this.viewer.models.document;
     var pageModel                 = this.viewer.models.pages;
@@ -77,10 +91,13 @@ DV.model.Annotations.prototype = {
     });
   },
 
-  // Renders each annotation into it's HTML format.
+  /**
+   * @method renderAnnotations
+   * Renders each annotation into it's HTML format.
+   */
   renderAnnotations: function(){
     if (this.viewer.options.showAnnotations === false) return;
-            
+
     for (var i=0; i<this.bySortOrder.length; i++) {
       var anno      = this.bySortOrder[i];
       anno.of       = _.indexOf(this.byPage[anno.page - 1], anno);
@@ -90,7 +107,12 @@ DV.model.Annotations.prototype = {
     this.renderAnnotationsByIndex();
   },
 
-  // Renders each annotation for the "Annotation List" tab, in order.
+  /**
+   * @method renderAnnotationsByIndex
+   * Renders each annotation for the "Annotation List" tab, in order.
+   *
+   * @return {String}
+   */
   renderAnnotationsByIndex: function(){
     var rendered  = _.map(this.bySortOrder, function(anno){ return anno.html; });
     var html      = rendered.join('')
@@ -110,15 +132,25 @@ DV.model.Annotations.prototype = {
     _.defer(_.bind(this.updateAnnotationOffsets, this));
   },
 
-  // Refresh the annotation's title and content from the model, in both
-  // The document and list views.
+  /**
+   * @method refreshAnnotation
+   * Refresh the annotation's title and content from the model, in both
+   * The document and list views.
+   *
+   * @param  {Object} anno
+   */
   refreshAnnotation : function(anno) {
     var viewer = this.viewer;
     anno.html = this.render(anno);
     DV.jQuery.$('#DV-annotation-' + anno.id).replaceWith(anno.html);
   },
 
-  // Removes a given annotation from the Annotations model (and DOM).
+  /**
+   * @method removeAnnotation
+   * Removes a given annotation from the Annotations model (and DOM).
+   *
+   * @param  {Object} anno
+   */
   removeAnnotation : function(anno) {
     delete this.byId[anno.id];
     var i = anno.page - 1;
@@ -129,7 +161,12 @@ DV.model.Annotations.prototype = {
     if (_.isEmpty(this.byId)) this.viewer.open('ViewDocument');
   },
 
-  // Offsets all document pages based on interleaved page annotations.
+  /**
+   * @method updateAnnotationOffsets
+   * Offsets all document pages based on interleaved page annotations.
+   *
+   * @return {Boolean}
+   */
   updateAnnotationOffsets: function(){
     this.offsetsAdjustments   = [];
     this.offsetAdjustmentSum  = 0;
@@ -167,38 +204,73 @@ DV.model.Annotations.prototype = {
     annotationsContainer.removeClass('DV-getHeights');
   },
 
-  // When an annotation is successfully saved, fire any registered
-  // save callbacks.
+  /**
+   * @method fireSaveCallbacks
+   * When an annotation is successfully saved, fire any registered
+   * save callbacks.
+   *
+   * @param  {Object}
+   */
   fireSaveCallbacks : function(anno) {
     _.each(this.saveCallbacks, function(c){ c(anno); });
   },
 
-  // When an annotation is successfully removed, fire any registered
-  // delete callbacks.
+  /**
+   * @method fireDeleteCallbacks
+   * When an annotation is successfully removed, fire any registered
+   * delete callbacks.
+   *
+   * @param  {Object} anno
+   */
   fireDeleteCallbacks : function(anno) {
     _.each(this.deleteCallbacks, function(c){ c(anno); });
   },
 
-  // Returns the list of annotations on a given page.
+  /**
+   * @method getAnnotations
+   * Returns the list of annotations on a given page.
+   *
+   * @param {String} _index
+   */
   getAnnotations: function(_index){
     return this.byPage[_index];
   },
 
+  /**
+   * @method getFirstAnnotation
+   * @return _.first(this.bySortOrder)
+   */
   getFirstAnnotation: function(){
     return _.first(this.bySortOrder);
   },
 
+  /**
+   * @method getNextAnnotation
+   * @param  {String} currentId
+   * @return this.bySortOrder[_.indexOf(this.bySortOrder, anno) + 1]
+   */
   getNextAnnotation: function(currentId) {
     var anno = this.byId[currentId];
     return this.bySortOrder[_.indexOf(this.bySortOrder, anno) + 1];
   },
 
+  /**
+   * @method getPreviousAnnotation
+   * @param  {String} currentId
+   * @return this.bySortOrder[_.indexOf(this.bySortOrder, anno) - 1]
+   */
   getPreviousAnnotation: function(currentId) {
     var anno = this.byId[currentId];
     return this.bySortOrder[_.indexOf(this.bySortOrder, anno) - 1];
   },
 
-  // Get an annotation by id, with backwards compatibility for argument hashes.
+  /**
+   * @method getAnnotation
+   * Get an annotation by id, with backwards compatibility for argument hashes.
+   *
+   * @param  {Object} identifier
+   * @return this.byId[identifier]
+   */
   getAnnotation: function(identifier) {
     if (identifier.id) return this.byId[identifier.id];
     if (identifier.index && !identifier.id) throw new Error('looked up an annotation without an id');

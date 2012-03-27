@@ -1,5 +1,14 @@
-// The Pages model represents the set of pages in the document, containing the
-// image sources for each page, and the page proportions.
+/**
+ * @class  DV.model.Pages
+ * The Pages model represents the set of pages in the document, containing the
+ * image sources for each page, and the page proportions.
+ */
+/**
+ * @method constructor
+ * Instantiate new DV.model.Pages
+ *
+ * @param {Object} viewer
+ */
 DV.model.Pages = function(viewer) {
   this.viewer     = viewer;
 
@@ -38,7 +47,13 @@ DV.model.Pages = function(viewer) {
 
 DV.model.Pages.prototype = {
 
-  // Get the complete image URL for a particular page.
+  /**
+   * @method imageURL
+   * Get the complete image URL for a particular page.
+   *
+   * @param  {Number} index [description]
+   * @return {String}       url
+   */
   imageURL: function(index) {
     var url  = this.viewer.schema.document.resources.page.image;
     var size = this.zoomLevel > this.BASE_WIDTH ? 'large' : 'normal';
@@ -49,13 +64,23 @@ DV.model.Pages.prototype = {
     return url;
   },
 
+  /**
+   * @method zeroPad
+   * @param  {Number} num
+   * @param  {Number} count
+   * @return {String}
+   */
   zeroPad : function(num, count) {
     var string = num.toString();
     while (string.length < count) string = '0' + string;
     return string;
   },
 
-  // Return the appropriate padding for the size of the viewer.
+  /**
+   * @method getPadding
+   * Return the appropriate padding for the size of the viewer.
+   * @return {Number}
+   */
   getPadding: function() {
     if (this.viewer.options.mini) {
       return this.MINI_PADDING;
@@ -66,12 +91,21 @@ DV.model.Pages.prototype = {
     }
   },
 
-  // The zoom factor is the ratio of the image width to the baseline width.
+  /**
+   * @method zoomFactor
+   * The zoom factor is the ratio of the image width to the baseline width.
+   *
+   * @return {Number} this.zoomLevel / this.BASE_WIDTH
+   */
   zoomFactor : function() {
     return this.zoomLevel / this.BASE_WIDTH;
   },
 
-  // Resize or zoom the pages width and height.
+  /**
+   * @method resize
+   * Resize or zoom the pages width and height.
+   * @param  {Number} zoomLevel
+   */
   resize : function(zoomLevel) {
     var padding = this.viewer.models.pages.DEFAULT_PADDING;
 
@@ -90,7 +124,13 @@ DV.model.Pages.prototype = {
     this.viewer.$('.DV-textContents').css({'font-size' : this.zoomLevel * 0.02 + 'px'});
   },
 
-  // Update the height for a page, when its real image has loaded.
+  /**
+   * @method updateHeight
+   * Update the height for a page, when its real image has loaded.
+   *
+   * @param  {Object} image
+   * @param  {String} pageIndex
+   */
   updateHeight: function(image, pageIndex) {
     var h = this.getPageHeight(pageIndex);
     var height = image.height * (this.zoomLevel > this.BASE_WIDTH ? 0.7 : 1.0);
@@ -110,12 +150,24 @@ DV.model.Pages.prototype = {
     }
   },
 
-  // set the real page height
+  /**
+   * @method setPageHeight
+   * set the real page height
+   *
+   * @param {String} pageIndex
+   * @param {Number} pageHeight
+   */
   setPageHeight: function(pageIndex, pageHeight) {
     this.pageHeights[pageIndex] = Math.round(pageHeight);
   },
 
-  // get the real page height
+  /**
+   * @method getPageHeight
+   * get the real page height
+   *
+   * @param  {String} pageIndex
+   * @return {Number}
+   */
   getPageHeight: function(pageIndex) {
     var realHeight = this.pageHeights[pageIndex];
     return Math.round(realHeight ? realHeight * this.zoomFactor() : this.height);

@@ -1,3 +1,11 @@
+/**
+ * @class DV.model.Chapters
+ */
+/**
+ * @method  constructor
+ * Instantiates new DV.model.Chapters
+ * @param {Object} viewer
+ */
 DV.model.Chapters = function(viewer) {
   this.viewer = viewer;
   this.loadChapters();
@@ -5,7 +13,10 @@ DV.model.Chapters = function(viewer) {
 
 DV.model.Chapters.prototype = {
 
-  // Load (or reload) the chapter model from the schema's defined sections.
+  /**
+   * @method loadChapters
+   * Load (or reload) the chapter model from the schema's defined sections.
+   */
   loadChapters : function() {
     var sections = this.viewer.schema.data.sections;
     var chapters = this.chapters = this.viewer.schema.data.chapters = [];
@@ -23,10 +34,20 @@ DV.model.Chapters.prototype = {
     }
   },
 
+  /**
+   * @method getChapterId
+   * @param  {String} index
+   * @return this.chapters[index]
+   */
   getChapterId: function(index){
     return this.chapters[index];
   },
 
+  /**
+   * @method getChapterPosition
+   * @param  {String} chapterId
+   * @return {Number}
+   */
   getChapterPosition: function(chapterId){
     for(var i = 0,len=this.chapters.length; i < len; i++){
       if(this.chapters[i] === chapterId){
