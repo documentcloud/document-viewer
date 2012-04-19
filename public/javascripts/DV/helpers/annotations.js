@@ -1,9 +1,27 @@
+/**
+ * @class  DV.Schema.helpers
+ */
 _.extend(DV.Schema.helpers, {
+
+  /**
+   * @method getAnnotationModel
+   * @static
+   *
+   * @param  {Object} annoEl
+   * @return {Object}
+   */
   getAnnotationModel : function(annoEl) {
     var annoId = parseInt(annoEl.attr('rel').match(/\d+/), 10);
     return this.models.annotations.getAnnotation(annoId);
   },
-  // Return the annotation Object that connects with the element in the DOM
+  /**
+   * @method getAnnotationObject
+   * Return the annotation Object that connects with the element in the DOM
+   * @static
+   *
+   * @param  {String} annotation
+   * @return {Boolean}
+   */
   getAnnotationObject: function(annotation){
 
     var annotation    = this.viewer.$(annotation);
@@ -21,42 +39,84 @@ _.extend(DV.Schema.helpers, {
     return false;
 
   },
-  // Set of bridges to access annotation methods
-  // Toggle
+  /**
+   * @method annotationBridgeToggle
+   * Set of bridges to access annotation methods
+   * Toggle
+   * @static
+   *
+   * @param  {Event} e
+   */
   annotationBridgeToggle: function(e){
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.toggle();
   },
-  // Show annotation
+  /**
+   * @method annotationBridgeShow
+   * Show annotation
+   * @static
+   *
+   * @param  {Event} e
+   */
   annotationBridgeShow: function(e){
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.show();
   },
-  // Hide annotation
+  /**
+   * @method annotationBridgeHide
+   * Hide annotation
+   * @static
+   *
+   * @param  {Event} e
+   */
   annotationBridgeHide: function(e){
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.hide(true);
   },
-  // Jump to the next annotation
+  /**
+   * @method annotationBridgeNext
+   * Jump to the next annotation
+   * @static
+   *
+   * @param  {Event} e
+   */
   annotationBridgeNext: function(e){
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.next();
   },
-  // Jump to the previous annotation
+  /**
+   * @method annotationBridgePrevious
+   * Jump to the previous annotation
+   * @static
+   *
+   * @param  {Event} e
+   */
   annotationBridgePrevious: function(e){
     e.preventDefault();
     var annotationObject = this.getAnnotationObject(this.viewer.$(e.target).closest(this.annotationClassName));
     annotationObject.previous();
   },
-  // Update currentpage text to indicate current annotation
+  /**
+   * @method setAnnotationPosition
+   * Update currentpage text to indicate current annotation
+   * @static
+   *
+   * @param {String} _position
+   */
   setAnnotationPosition: function(_position){
     this.elements.currentPage.text(_position);
   },
-  // Update active annotation limits
+  /**
+   * @method setActiveAnnotationLimits
+   * Update active annotation limits
+   * @static
+   *
+   * @param {Object} annotation
+   */
   setActiveAnnotationLimits: function(annotation){
     var annotation = (annotation) ? annotation : this.viewer.activeAnnotation;
 

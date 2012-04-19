@@ -1,3 +1,10 @@
+/**
+ * @class DV.Schema
+ */
+/**
+ * @method constructor
+ * initializes Schema class
+ */
 DV.Schema = function() {
   this.models       = {};
   this.views        = {};
@@ -14,8 +21,13 @@ DV.Schema = function() {
   };
 };
 
-// Imports the document's JSON representation into the DV.Schema form that
-// the models expect.
+/**
+ * @method importCanonicalDocument
+ * Imports the document's JSON representation into the DV.Schema form that
+ * the models expect.
+ *
+ * @param  {Object} json
+ */
 DV.Schema.prototype.importCanonicalDocument = function(json) {
   // Ensure that IDs start with 1 as the lowest id.
   _.uniqueId();
@@ -36,7 +48,13 @@ DV.Schema.prototype.importCanonicalDocument = function(json) {
   _.each(json.annotations, DV.jQuery.proxy(this.loadAnnotation, this));
 };
 
-// Load an annotation into the Schema, starting from the canonical format.
+/**
+ * @method loadAnnotation
+ * Load an annotation into the Schema, starting from the canonical format.
+ *
+ * @param  {Object} anno
+ * @return {Object}
+ */
 DV.Schema.prototype.loadAnnotation = function(anno) {
   if (anno.id) anno.server_id = anno.id;
   var idx     = anno.page - 1;

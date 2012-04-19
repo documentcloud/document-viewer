@@ -1,3 +1,13 @@
+/**
+ * @class DV.DocumentViewer
+ * The main Document Viewer controller class. Handles the application logic for
+ * instantiating a Document Viewer.
+ */
+/**
+ * @method  constructor
+ * Constructor function.
+ * @param  {Object}  options 2nd class arguments
+ */
 DV.DocumentViewer = function(options) {
   this.options        = options;
   this.window         = window;
@@ -35,6 +45,7 @@ DV.DocumentViewer = function(options) {
     elements    : this.elements,
     helpers     : this.helpers,
     models      : this.models,
+
     // this allows us to bind events to call the method corresponding to the current state
     compile     : function(){
       var a           = this.viewer;
@@ -66,6 +77,18 @@ DV.DocumentViewer = function(options) {
   });
 };
 
+/**
+ * @method  loadModels
+ * Instantiates all models needed by a Document Viewer.
+ *
+ * Models instantiated include...
+ *
+ * - chapters
+ * - document
+ * - pages
+ * - annotations
+ * - removedPages
+ */
 DV.DocumentViewer.prototype.loadModels = function() {
   this.models.chapters     = new DV.model.Chapters(this);
   this.models.document     = new DV.model.Document(this);
@@ -74,7 +97,12 @@ DV.DocumentViewer.prototype.loadModels = function() {
   this.models.removedPages = {};
 };
 
-// Transition to a given state ... unless we're already in it.
+/**
+ * @method  open
+ * Transition to a given state... unless we're already in it.
+ *
+ * @param {String} state State proposed for opening.
+ */
 DV.DocumentViewer.prototype.open = function(state) {
   if (this.state == state) return;
   var continuation = _.bind(function() {
@@ -87,15 +115,28 @@ DV.DocumentViewer.prototype.open = function(state) {
   this.confirmStateChange ? this.confirmStateChange(continuation) : continuation();
 };
 
+/**
+ * @method  slapIE
+ * IE zoom hack
+ */
 DV.DocumentViewer.prototype.slapIE = function() {
   DV.jQuery(this.options.container).css({zoom: 0.99}).css({zoom: 1});
 };
 
+/**
+ * @method  notifyChangedState
+ * Call subscribers on state change.
+ */
 DV.DocumentViewer.prototype.notifyChangedState = function() {
   _.each(this.onStateChangeCallbacks, function(c) { c(); });
 };
 
-// Record a hit on this document viewer.
+/**
+ * @method  recordHit
+ * Record a hit on this document viewer.
+ *
+ * @param  {String}  hitUrl Url to record hit on
+ */
 DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   var loc = window.location;
   var url = loc.protocol + '//' + loc.host + loc.pathname;
@@ -106,13 +147,43 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   DV.jQuery(document.body).append('<img alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
-// jQuery object, scoped to this viewer's container.
+/**
+ * @method jQuery
+ * jQuery object, scoped to this viewer's container.
+ *
+ * @param  {String}   selector css selector
+ * @param  {Object}   context object context to call jQuery with (e.g. this)
+ * @return {Function}
+ */
 DV.DocumentViewer.prototype.jQuery = function(selector, context) {
   context = context || this.options.container;
   return DV.jQuery.call(DV.jQuery, selector, context);
 };
 
-// The origin function, kicking off the entire documentViewer render.
+/**
+ * @method load
+ * The origin function, kicking off the entire documentViewer render.
+ *
+ * @static
+ * @param  {String}  documentRep url to a json document or an object
+ * @param  {Object}  options     2nd level arguments
+ *
+ * @return  {Object}  instance of viewer
+ */
+/**
+ * @cfg  options  object containing optional arguments
+ * @cfg  options.container  css selector for container element
+ * @cfg  options.showSidebar  displays or hides sidebar
+ * @cfg  options.zoom  default zoom level
+ * @cfg  options.width  width of document viewer in pixels
+ * @cfg  options.height  height of document viewer in pixels
+ * @cfg  options.afterLoad  callback for afterLoad event
+ * @cfg  options.search  hide or display search input
+ * @cfg  options.templates  url where templates need to be loaded from
+ * @cfg  options.showAnnotations  hide or display annotations
+ * @cfg  options.pdf  hide or show pdf link
+ * @cfg  options.text  hide or show text tab for document
+ */
 DV.load = function(documentRep, options) {
   options = options || {};
   var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
@@ -139,8 +210,10 @@ DV.load = function(documentRep, options) {
     });
   };
 
-  // If we've been passed the JSON directly, we can go ahead,
-  // otherwise make a JSONP request to fetch it.
+  /**
+   * If we've been passed the JSON directly, we can go ahead,
+   * otherwise make a JSONP request to fetch it.
+   */
   var jsonLoad = function() {
     if (_.isString(documentRep)) {
       if (documentRep.match(/\.js$/)) {
@@ -156,7 +229,7 @@ DV.load = function(documentRep, options) {
   };
 
   // If we're being asked the fetch the templates, load them remotely before
-  // continuing.
+  // continuing
   if (options.templates) {
     DV.jQuery.getScript(options.templates, jsonLoad);
   } else {
@@ -166,7 +239,7 @@ DV.load = function(documentRep, options) {
   return viewer;
 };
 
+
 // If the document viewer has been loaded dynamically, allow the external
 // script to specify the onLoad behavior.
 if (DV.onload) _.defer(DV.onload);
-

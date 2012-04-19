@@ -1,6 +1,15 @@
+/**
+ * @class  DV.Schema.events
+ */
 _.extend(DV.Schema.events, {
 
-  // #document/p[pageID]
+  /**
+   * @method handleHashChangeViewDocumentPage
+   * #document/p[pageID]
+   * @static
+   *
+   * @param  {Number} page
+   */
   handleHashChangeViewDocumentPage: function(page){
     var pageIndex = parseInt(page,10) - 1;
     if(this.viewer.state === 'ViewDocument'){
@@ -12,13 +21,26 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // #p[pageID]
+  /**
+   * @method handleHashChangeLegacyViewDocumentPage
+   * #p[pageID]
+   * @static
+   *
+   * @param {Number} page
+   */
   handleHashChangeLegacyViewDocumentPage: function(page){
     var pageIndex   = parseInt(page,10) - 1;
     this.handleHashChangeViewDocumentPage(page);
   },
 
-  // #document/p[pageID]/a[annotationID]
+  /**
+   * @method handleHashChangeViewDocumentAnnotation
+   * #document/p[pageID]/a[annotationID]
+   * @static
+   *
+   * @param  {Number} page
+   * @param  {Number} annotation
+   */
   handleHashChangeViewDocumentAnnotation: function(page,annotation){
     var pageIndex   = parseInt(page,10) - 1;
     var annotation  = parseInt(annotation,10);
@@ -33,7 +55,13 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // #annotation/a[annotationID]
+  /**
+   * @method handleHashChangeViewAnnotationAnnotation
+   * #annotation/a[annotationID]
+   * @static
+   *
+   * @param  {Number} annotation
+   */
   handleHashChangeViewAnnotationAnnotation: function(annotation){
     var annotation  = parseInt(annotation,10);
     var viewer = this.viewer;
@@ -46,7 +74,11 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // Default route if all else fails
+  /**
+   * @method handleHashChangeDefault
+   * Default route if all else fails
+   * @static
+   */
   handleHashChangeDefault: function(){
     this.viewer.pageSet.cleanUp();
     this.models.document.setPageIndex(0);
@@ -59,7 +91,13 @@ _.extend(DV.Schema.events, {
     }
   },
 
-  // #text/p[pageID]
+  /**
+   * @method handleHashChangeViewText
+   * #text/p[pageID]
+   * @static
+   *
+   * @param {Number} page
+   */
   handleHashChangeViewText: function(page){
     var pageIndex = parseInt(page,10) - 1;
     if(this.viewer.state === 'ViewText'){
@@ -70,12 +108,23 @@ _.extend(DV.Schema.events, {
     }
   },
 
+  /**
+   * @method handleHashChangeViewPages
+   * @static
+   */
   handleHashChangeViewPages: function() {
     if (this.viewer.state == 'ViewThumbnails') return;
     this.viewer.open('ViewThumbnails');
   },
 
-  // #search/[searchString]
+  /**
+   * @method handleHashChangeViewSearchRequest
+   * #search/[searchString]
+   * @static
+   *
+   * @param  {Number} page
+   * @param  {String} query
+   */
   handleHashChangeViewSearchRequest: function(page,query){
     var pageIndex = parseInt(page,10) - 1;
     this.elements.searchInput.val(decodeURIComponent(query));
@@ -86,7 +135,16 @@ _.extend(DV.Schema.events, {
     this.viewer.open('ViewSearch');
   },
 
-  // #entity/p[pageID]/[searchString]/[offset]:[length]
+  /**
+   * @method handleHashChangeViewEntity
+   * #entity/p[pageID]/[searchString]/[offset]:[length]
+   * @static
+   *
+   * @param  {Number} page
+   * @param  {String} name
+   * @param  {Number} offset
+   * @param  {Number} length
+   */
   handleHashChangeViewEntity: function(page, name, offset, length) {
     page = parseInt(page,10) - 1;
     name = decodeURIComponent(name);

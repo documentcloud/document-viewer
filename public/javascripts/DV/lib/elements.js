@@ -1,3 +1,10 @@
+/**
+ * @class  DV.Elements
+ */
+/**
+ * @method constructor
+ * @param viewer
+ */
 DV.Elements = function(viewer){
   this._viewer = viewer;
   var elements = DV.Schema.elements;
@@ -6,7 +13,11 @@ DV.Elements = function(viewer){
   }
 };
 
-// Get and store an element reference
+/**
+ * @method getElement
+ * @param  {Object} elementQuery
+ * @param  force
+ */
 DV.Elements.prototype.getElement = function(elementQuery,force){
   this[elementQuery.name] = this._viewer.$(elementQuery.query);
 };

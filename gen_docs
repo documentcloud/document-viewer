@@ -1,0 +1,1 @@
+jsduck -o docs --title='Document Viewer - Docs' public/javascripts

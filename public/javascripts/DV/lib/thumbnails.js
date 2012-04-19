@@ -1,5 +1,13 @@
-// Create a thumbnails view for a given viewer, using a URL template, and
-// the number of pages in the document.
+/**
+ * @class  DV.Thumbnails
+ * Create a thumbnails view for a given viewer, using a URL template, and
+ * the number of pages in the document.
+ */
+/**
+ * @method constructor
+ * Initializes DV.Thumbnails
+ * @param viewer
+ */
 DV.Thumbnails = function(viewer){
   this.currentIndex    = 0;
   this.zoomLevel       = null;
@@ -18,7 +26,10 @@ DV.Thumbnails = function(viewer){
   _.bindAll(this, 'lazyloadThumbnails', 'loadThumbnails');
 };
 
-// Render the Thumbnails from scratch.
+/**
+ * @method render
+ * Render the Thumbnails from scratch.
+ */
 DV.Thumbnails.prototype.render = function() {
   this.el = this.viewer.$('.DV-thumbnails');
   this.getCurrentIndex();
@@ -30,6 +41,11 @@ DV.Thumbnails.prototype.render = function() {
   DV.jQuery(window).unbind(resizeEvent).bind(resizeEvent, this.lazyloadThumbnails);
 };
 
+/**
+ * @method buildThumbnails
+ * @param  {Number} startPage
+ * @param  {Number} endPage
+ */
 DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
   if (startPage == 1) this.el.empty();
   var thumbnailsHTML = JST.thumbnails({
@@ -43,10 +59,16 @@ DV.Thumbnails.prototype.buildThumbnails = function(startPage, endPage) {
   _.defer(this.loadThumbnails);
 };
 
+/**
+ * @method getCurrentIndex
+ */
 DV.Thumbnails.prototype.getCurrentIndex = function() {
   this.currentIndex = this.viewer.models.document.currentIndex();
 };
 
+/**
+ * @method highlightCurrentPage
+ */
 DV.Thumbnails.prototype.highlightCurrentPage = function() {
   this.currentIndex = this.viewer.models.document.currentIndex();
   this.viewer.$('.DV-thumbnail.DV-selected').removeClass('DV-selected');
@@ -59,8 +81,13 @@ DV.Thumbnails.prototype.highlightCurrentPage = function() {
   }
 };
 
-// Set the appropriate zoomLevel class for the thumbnails, estimating
-// height change.
+/**
+ * @method setZoom
+ * Set the appropriate zoomLevel class for the thumbnails, estimating
+ * height change.
+ *
+ * @param {Number} zoom
+ */
 DV.Thumbnails.prototype.setZoom = function(zoom) {
   this.getZoom(zoom);
   var size = this.sizes[this.zoomLevel];
@@ -77,8 +104,14 @@ DV.Thumbnails.prototype.setZoom = function(zoom) {
   this.el.addClass('DV-zoom-' + this.zoomLevel);
 };
 
-// The thumbnails (unfortunately) have their own notion of the current zoom
-// level -- specified from 0 - 4.
+/**
+ * @method getZoom
+ * The thumbnails (unfortunately) have their own notion of the current zoom
+ * level -- specified from 0 - 4.
+ *
+ * @param  {Number} zoom
+ * @return {Number}
+ */
 DV.Thumbnails.prototype.getZoom = function(zoom) {
   if (zoom != null) {
     return this.zoomLevel = _.indexOf(this.viewer.models.document.ZOOM_RANGES, zoom);
@@ -87,7 +120,13 @@ DV.Thumbnails.prototype.getZoom = function(zoom) {
   }
 };
 
-// After a thumbnail has been loaded, we know its height.
+/**
+ * @method setImageSize
+ * After a thumbnail has been loaded, we know its height.
+ *
+ * @param {Object} image
+ * @param {Object} imageEl
+ */
 DV.Thumbnails.prototype.setImageSize = function(image, imageEl) {
   var size = this.sizes[this.zoomLevel];
   var ratio = size.w / image.width;
@@ -104,16 +143,22 @@ DV.Thumbnails.prototype.setImageSize = function(image, imageEl) {
   imageEl.attr({src: image.src});
 };
 
-// Only attempt to load the current viewport's worth of thumbnails if we've
-// been sitting still for at least 1/10th of a second.
+/**
+ * @method lazyloadThumbnails
+ * Only attempt to load the current viewport's worth of thumbnails if we've
+ * been sitting still for at least 1/10th of a second.
+ */
 DV.Thumbnails.prototype.lazyloadThumbnails = function() {
   if (this.viewer.state != 'ViewThumbnails') return;
   if (this.scrollTimer) clearTimeout(this.scrollTimer);
   this.scrollTimer = setTimeout(this.loadThumbnails, 100);
 };
 
-// Load the currently visible thumbnails, as determined by the size and position
-// of the viewport.
+/**
+ * @method loadThumbnails
+ * Load the currently visible thumbnails, as determined by the size and position
+ * of the viewport.
+ */
 DV.Thumbnails.prototype.loadThumbnails = function() {
   var viewer           = this.viewer;
   var width            = viewer.$('.DV-thumbnails').width();
@@ -137,7 +182,13 @@ DV.Thumbnails.prototype.loadThumbnails = function() {
   this.loadImages(startPage, endPage);
 };
 
-// Load all of the images within a range of visible thumbnails.
+/**
+ * @method loadImages
+ * Load all of the images within a range of visible thumbnails.
+ *
+ * @param  {Number} startPage
+ * @param  {Number} endPage
+ */
 DV.Thumbnails.prototype.loadImages = function(startPage, endPage) {
   var self = this;
   var viewer = this.viewer;

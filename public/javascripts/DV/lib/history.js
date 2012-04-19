@@ -1,15 +1,18 @@
-// Handles JavaScript history management and callbacks. To use, register a
-// regexp that matches the history hash with its corresponding callback:
-//
-//     dc.history.register(/^#search/, controller.runSearch);
-//
-// And then you can save arbitrary history fragments.
-//
-//     dc.history.save('search/freedom/p3');
-//
-// Initialize history with an empty set of handlers.
-// Bind to the HTML5 'onhashchange' callback, if it exists. Otherwise,
-// start polling the window location.
+/**
+ * @class DV.History
+ * Handles JavaScript history management and callbacks. To use, register a
+ * regexp that matches the history hash with its corresponding callback:
+ *
+ * `dc.history.register(/^#search/, controller.runSearch);`
+ *
+ * And then you can save arbitrary history fragments.
+ *
+ * `dc.history.save('search/freedom/p3');`
+ *
+ * Initialize history with an empty set of handlers.
+ * Bind to the HTML5 'onhashchange' callback, if it exists. Otherwise,
+ * start polling the window location.
+ */
 DV.History = function(viewer) {
   this.viewer = viewer;
 
@@ -43,19 +46,34 @@ DV.History = function(viewer) {
   }, this));
 };
 
+/**
+ * @property {Number} [count="0"]
+ * @static
+ */
 DV.History.count = 0;
 
 DV.History.prototype = {
 
-  // Register a history handler. Pass a regular expression that can be used to
-  // match your URLs, and the callback to be invoked with the remainder of the
-  // hash, when matched.
+  /**
+   * @method register
+   * Register a history handler. Pass a regular expression that can be used to
+   * match your URLs, and the callback to be invoked with the remainder of the
+   * hash, when matched.
+   *
+   * @param {String} matcher
+   * @param {Function} callback
+   */
   register : function(matcher, callback) {
     this.handlers.push({matcher : matcher, callback : callback});
   },
 
-  // Save a moment into browser history. Make sure you've registered a handler
-  // for it. You're responsible for pre-escaping the URL fragment.
+  /**
+   * @method save
+   * Save a moment into browser history. Make sure you've registered a handler
+   * for it. You're responsible for pre-escaping the URL fragment.
+   *
+   * @param  {Object} hash
+   */
   save : function(hash) {
     if (DV.History.count > 1) return;
     window.location.hash = this.hash = (hash ? '#' + hash : '');
@@ -65,7 +83,10 @@ DV.History.prototype = {
     }
   },
 
-  // Check the current URL hash against the recorded one, firing callbacks.
+  /**
+   * @method checkURL
+   * Check the current URL hash against the recorded one, firing callbacks.
+   */
   checkURL : function() {
     if (DV.History.count > 1) return;
     try {
@@ -81,10 +102,16 @@ DV.History.prototype = {
     this.loadURL(true);
   },
 
-  // Load the history callback associated with the current page fragment. On
-  // pages that support history, this method should be called at page load,
-  // after all the history callbacks have been registered.
-  // executeCallbacks must be passed as true, otherwise true/false will returned based on positive route matches.
+  /**
+   * @method loadURL
+   * Load the history callback associated with the current page fragment. On
+   * pages that support history, this method should be called at page load,
+   * after all the history callbacks have been registered.
+   * executeCallbacks must be passed as true, otherwise true/false will returned based on positive route matches.
+   *
+   * @param  {Boolean} executeCallbacks
+   * @return {Boolean}
+   */
   loadURL : function(executeCallbacks) {
     var hash = this.hash = window.location.hash;
 

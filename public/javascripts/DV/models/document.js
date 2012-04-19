@@ -1,3 +1,11 @@
+/**
+ * @class  DV.model.Document
+ */
+/**
+ * @method constructor
+ * Instantiates new DV.model.Document
+ * @param {Object} viewer instance of viewer
+ */
 DV.model.Document = function(viewer){
   this.viewer                    = viewer;
 
@@ -20,7 +28,7 @@ DV.model.Document = function(viewer){
   this.additionalPaddingOnPage   = data.additionalPaddingOnPage;
   this.pageWidthPadding          = data.pageWidthPadding;
   this.totalPages                = data.totalPages;
-  
+
   this.onPageChangeCallbacks = [];
 
   var zoom = this.zoomLevel = this.viewer.options.zoom || data.zoomLevel;
@@ -33,6 +41,10 @@ DV.model.Document = function(viewer){
 
 DV.model.Document.prototype = {
 
+  /**
+   * @method setPageIndex
+   * @param {Number} index
+   */
   setPageIndex : function(index) {
     this.currentPageIndex = index;
     this.viewer.elements.currentPage.text(this.currentPage());
@@ -40,22 +52,43 @@ DV.model.Document.prototype = {
     _.each(this.onPageChangeCallbacks, function(c) { c(); });
     return index;
   },
+  /**
+   * @method currentPage
+   * @return {Number}
+   */
   currentPage : function() {
     return this.currentPageIndex + 1;
   },
+  /**
+   * @method currentIndex
+   * @return {Number} this.currentPageIndex
+   */
   currentIndex : function() {
     return this.currentPageIndex;
   },
+  /**
+   * @method nextPage
+   * @return this.setPageIndex(nextIndex)
+   */
   nextPage : function() {
     var nextIndex = this.currentIndex() + 1;
     if (nextIndex >= this.totalPages) return this.currentIndex();
     return this.setPageIndex(nextIndex);
   },
+  /**
+   * @method previousPage
+   * @return this.setPageIndex(previousIndex)
+   */
   previousPage : function() {
     var previousIndex = this.currentIndex() - 1;
     if (previousIndex < 0) return this.currentIndex();
     return this.setPageIndex(previousIndex);
   },
+  /**
+   * @method zoom
+   * @param  {Number} zoomLevel
+   * @param  {Boolean} force
+   */
   zoom: function(zoomLevel,force){
     if(this.zoomLevel != zoomLevel || force === true){
       this.zoomLevel   = zoomLevel;
@@ -65,6 +98,9 @@ DV.model.Document.prototype = {
     }
   },
 
+  /**
+   * @method computeOffsets
+   */
   computeOffsets: function() {
     var annotationModel  = this.viewer.models.annotations;
     var totalDocHeight   = 0;
@@ -105,22 +141,41 @@ DV.model.Document.prototype = {
     }
   },
 
+  /**
+   * @method getOffset
+   * @param  {String} _index
+   * @return this.offsets[_index]
+   */
   getOffset: function(_index){
     return this.offsets[_index];
   },
 
+  /**
+   * @method resetRemovedPages
+   */
   resetRemovedPages: function() {
     this.viewer.models.removedPages = {};
   },
 
+  /**
+   * @method addPageToRemovedPages
+   * @param {String} page
+   */
   addPageToRemovedPages: function(page) {
     this.viewer.models.removedPages[page] = true;
   },
 
+  /**
+   * @method removePageFromRemovedPages
+   * @param  {String} page
+   */
   removePageFromRemovedPages: function(page) {
     this.viewer.models.removedPages[page] = false;
   },
 
+  /**
+   * @method redrawPages
+   */
   redrawPages: function() {
     _.each(this.viewer.pageSet.pages, function(page) {
       page.drawRemoveOverlay();
@@ -130,6 +185,9 @@ DV.model.Document.prototype = {
     }
   },
 
+  /**
+   * @method redrawReorderedPages
+   */
   redrawReorderedPages: function() {
     if (this.viewer.thumbnails) {
       this.viewer.thumbnails.render();

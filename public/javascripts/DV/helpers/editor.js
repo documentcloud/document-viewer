@@ -1,10 +1,23 @@
+/**
+ * @class  DV.Schema.helpers
+ */
 _.extend(DV.Schema.helpers,{
+  /**
+   * @method showAnnotationEdit
+   * @static
+   * @param  {Event} e
+   */
   showAnnotationEdit : function(e) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var area   = this.viewer.$('.DV-annotationTextArea', annoEl);
     annoEl.addClass('DV-editing');
     area.focus();
   },
+  /**
+   * @method cancelAnnotationEdit
+   * @static
+   * @param  {Event} e
+   */
   cancelAnnotationEdit : function(e) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var anno   = this.getAnnotationModel(annoEl);
@@ -16,6 +29,12 @@ _.extend(DV.Schema.helpers,{
       annoEl.removeClass('DV-editing');
     }
   },
+  /**
+   * @method saveAnnotation
+   * @static
+   * @param  {Event} e
+   * @param {String} option
+   */
   saveAnnotation : function(e, option) {
     var target = this.viewer.$(e.target);
     var annoEl = target.closest(this.annotationClassName);
@@ -41,6 +60,11 @@ _.extend(DV.Schema.helpers,{
     this.viewer.api.redraw(true);
     if (this.viewer.activeAnnotation) this.viewer.pageSet.showAnnotation(anno);
   },
+  /**
+   * @method deleteAnnotation
+   * @static
+   * @param  {Event} e
+   */
   deleteAnnotation : function(e) {
     var annoEl = this.viewer.$(e.target).closest(this.annotationClassName);
     var anno   = this.getAnnotationModel(annoEl);

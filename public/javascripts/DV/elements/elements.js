@@ -1,4 +1,8 @@
-// We cache DOM references to improve speed and reduce DOM queries
+/**
+ * @member DV.Schema
+ * @property {Array} elements
+ * We cache DOM references to improve speed and reduce DOM queries
+ */
 DV.Schema.elements =
 [
   { name: 'browserDocument',    query: document },

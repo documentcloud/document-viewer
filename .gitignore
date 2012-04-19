@@ -4,3 +4,5 @@ log/*
 .#*
 .DS_Store
 raw
+docs/*
+naturaldocs/*

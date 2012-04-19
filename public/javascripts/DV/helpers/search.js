@@ -1,4 +1,12 @@
+/**
+ * @class  DV.Schema.helpers
+ */
 _.extend(DV.Schema.helpers, {
+  /**
+   * @method getSearchResponse
+   * @param  {String} query
+   * @static
+   */
   getSearchResponse: function(query){
     var handleResponse = DV.jQuery.proxy(function(response){
       this.viewer.searchResponse = response;
@@ -27,6 +35,10 @@ _.extend(DV.Schema.helpers, {
     if (this.viewer.helpers.isCrossDomain(searchURI)) searchURI += '&callback=?';
     DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
   },
+  /**
+   * @method acceptInputCallBack
+   * @static
+   */
   acceptInputCallBack: function(){
     var pageIndex = parseInt(this.elements.currentPage.text(),10) - 1;
     // sanitize input
@@ -49,6 +61,11 @@ _.extend(DV.Schema.helpers, {
     }
 
   },
+  /**
+   * @method highlightSearchResponses
+   * @static
+   * @return {Boolean} if not response return false
+   */
   highlightSearchResponses: function(){
 
     var viewer    = this.viewer;
@@ -90,9 +107,16 @@ _.extend(DV.Schema.helpers, {
     textContent     = null;
 
   },
-  // Highlight a single instance of an entity on the page. Make sure to
-  // convert into proper UTF8 before trying to get the entity length, and
-  // then back into UTF16 again.
+  /**
+   * @method highlightEntity
+   * Highlight a single instance of an entity on the page. Make sure to
+   * convert into proper UTF8 before trying to get the entity length, and
+   * then back into UTF16 again.
+   * @static
+   *
+   * @param  {Number} offset
+   * @param  {Number} length
+   */
   highlightEntity: function(offset, length) {
     this.viewer.$('.DV-searchResults').addClass('DV-noResults');
     var textContent = this.viewer.$('.DV-textContents');
@@ -105,6 +129,12 @@ _.extend(DV.Schema.helpers, {
     this.highlightMatch(0);
   },
 
+  /**
+   * @method highlightMatch
+   * @static
+   * @param  {Number} index
+   * @return {Boolean}
+   */
   highlightMatch: function(index){
     var highlightsOnThisPage   = this.viewer.$('.DV-textContents span.DV-searchMatch');
     if (highlightsOnThisPage.length == 0) return false;
@@ -156,6 +186,13 @@ _.extend(DV.Schema.helpers, {
     highlightsOnThisPage = null;
     match = null;
   },
+  /**
+   * @method getCurrentSearchPageIndex
+   * @static
+   *
+   * @return {Boolean}
+   * @return {Number}
+   */
   getCurrentSearchPageIndex: function(){
     var searchResponse = this.viewer.searchResponse;
     if(!searchResponse) {
@@ -168,25 +205,54 @@ _.extend(DV.Schema.helpers, {
       }
     }
   },
+  /**
+   * @method highlightPreviousMatch
+   * @static
+   *
+   * @param  {Event} e [description]
+   */
   highlightPreviousMatch: function(e){
     e.preventDefault();
     this.highlightMatch(this.viewer.searchResponse.highlighted-1);
   },
+  /**
+   * @method highlightNextMatch
+   * @static
+   * @param  {Event} e
+   */
   highlightNextMatch: function(e){
     e.preventDefault(e);
     this.highlightMatch(this.viewer.searchResponse.highlighted+1);
   },
 
+  /**
+   * @method clearSearch
+   * @static
+   *
+   * @param  {Event} e
+   */
   clearSearch: function(e) {
     this.elements.searchInput.val('').keyup().focus();
   },
 
+  /**
+   * @method showEntity
+   * @static
+   *
+   * @param  {String} name
+   * @param  {Number} offset
+   * @param  {Number} length
+   */
   showEntity: function(name, offset, length) {
     this.viewer.$('span.DV-totalSearchResult').text('');
     this.viewer.$('span.DV-searchQuery').text(name);
     this.viewer.$('span.DV-currentSearchResult').text("Searching");
     this.events.loadText(this.models.document.currentIndex(), _.bind(this.viewer.helpers.highlightEntity, this.viewer.helpers, offset, length));
   },
+  /**
+   * @method cleanUpSearch
+   * @static
+   */
   cleanUpSearch: function(){
     var viewer            = this.viewer;
     viewer.searchResponse = null;

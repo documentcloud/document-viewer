@@ -1,6 +1,17 @@
-// This manages events for different states activated through DV interface actions like clicks, mouseovers, etc.
+/**
+ * @class  DV.Schema.events
+ * This manages events for different states activated through DV interface actions like
+ * clicks, mouseovers, etc.
+ */
 DV.Schema.events = {
-  // Change zoom level and causes a reflow and redraw of pages.
+  /**
+   * @method zoom
+   * Change zoom level and causes a reflow and redraw of pages.
+   * @static
+   *
+   * @param {Number} level
+   * @return {Boolean}
+   */
   zoom: function(level){
     var viewer = this.viewer;
     var continuation = function() {
@@ -13,7 +24,11 @@ DV.Schema.events = {
     viewer.confirmStateChange ? viewer.confirmStateChange(continuation) : continuation();
   },
 
-  // Draw (or redraw) the visible pages on the screen.
+  /**
+   * @method drawPages
+   * Draw (or redraw) the visible pages on the screen.
+   * @static
+   */
   drawPages: function() {
     if (this.viewer.state != 'ViewDocument') return;
     var doc           = this.models.document;
@@ -30,7 +45,14 @@ DV.Schema.events = {
     this.drawPageAt(pageIds, middlePage - 1);
   },
 
-  // Draw the page at the given index.
+  /**
+   * @method drawPageAt
+   * Draw the page at the given index.
+   * @static
+   *
+   * @param pageIds
+   * @param  {Number} index
+   */
   drawPageAt : function(pageIds, index) {
     var first = index == 0;
     var last  = index == this.models.document.totalPages - 1;
@@ -45,6 +67,10 @@ DV.Schema.events = {
     this.viewer.pageSet.draw(pages);
   },
 
+  /**
+   * @method check
+   * @static
+   */
   check: function(){
     var viewer = this.viewer;
     if(viewer.busy === false){
@@ -56,6 +82,13 @@ DV.Schema.events = {
     }
   },
 
+  /**
+   * @method loadText
+   * @static
+   * @param  {Number} pageIndex
+   * @param  {Function} afterLoad
+   * @return {String}
+   */
   loadText: function(pageIndex,afterLoad){
 
     pageIndex = (!pageIndex) ? this.models.document.currentIndex() : parseInt(pageIndex,10);
@@ -99,11 +132,20 @@ DV.Schema.events = {
     DV.jQuery[crossDomain ? 'getJSON' : 'get'](textURI, {}, handleResponse);
   },
 
+  /**
+   * @method resetTracker
+   * @static
+   */
   resetTracker: function(){
     this.viewer.activeAnnotation = null;
     this.trackAnnotation.combined     = null;
     this.trackAnnotation.h            = null;
   },
+
+  /**
+   * @method trackAnnotation
+   * @static
+   */
   trackAnnotation: function(){
     var viewer          = this.viewer;
     var helpers         = this.helpers;

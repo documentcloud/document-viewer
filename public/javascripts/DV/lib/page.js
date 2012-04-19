@@ -1,5 +1,11 @@
-// // page
-
+/**
+ * @class  DV.Page
+ */
+/**
+ * @method constructor
+ * @param viewer
+ * @param {Object} argHash
+ */
 DV.Page = function(viewer, argHash){
   this.viewer           = viewer;
 
@@ -34,27 +40,48 @@ DV.Page = function(viewer, argHash){
   this.model_chapters     = m.chapters;
 };
 
-// Set the image reference for the page for future updates
+/**
+ * @method setPageImage
+ * Set the image reference for the page for future updates
+ */
 DV.Page.prototype.setPageImage = function(){
   this.pageImageEl = this.getPageImage();
 };
 
-// get page image to update
+/**
+ * @method getPageImage
+ * get page image to update
+ *
+ * @return {Object} element
+ */
 DV.Page.prototype.getPageImage = function(){
   return this.el.find('img.DV-pageImage');
 };
 
-// Get the offset for the page at its current index
+/**
+ * @method getOffset
+ * Get the offset for the page at its current index
+ * @return {Number}
+ */
 DV.Page.prototype.getOffset = function(){
   return this.model_document.offsets[this.index];
 };
 
+/**
+ * @method getPageNoteHeight
+ * @return {Number}
+ */
 DV.Page.prototype.getPageNoteHeight = function() {
   return this.model_pages.pageNoteHeights[this.index];
 };
 
-// Draw the current page and its associated layers/annotations
-// Will stop if page index appears the same or force boolean is passed
+/**
+ * @method draw
+ * Draw the current page and its associated layers/annotations
+ * Will stop if page index appears the same or force boolean is passed
+ *
+ * @param  {Object} argHash
+ */
 DV.Page.prototype.draw = function(argHash) {
 
   // Return immeditately if we don't need to redraw the page.
@@ -152,10 +179,16 @@ DV.Page.prototype.draw = function(argHash) {
 
 };
 
+/**
+ * @method drawRemoveOverlay
+ */
 DV.Page.prototype.drawRemoveOverlay = function() {
   this.removedOverlayEl.toggleClass('visible', !!this.viewer.models.removedPages[this.index+1]);
 };
 
+/**
+ * @method setPageType
+ */
 DV.Page.prototype.setPageType = function(){
   if(this.annotations.length > 0){
    if(this.hasLayerPage === true){
@@ -169,19 +202,35 @@ DV.Page.prototype.setPageType = function(){
   }
 };
 
-// Position Y coordinate of this page in the view based on current offset in the Document model
+/**
+ * @method position
+ * Position Y coordinate of this page in the view based on current offset in the
+ * Document model
+ *
+ * @param  {Object} argHash
+ */
 DV.Page.prototype.position = function(argHash){
   this.el.css({ top: this.model_document.offsets[this.index] });
   this.offset  = this.getOffset();
 };
 
-// Render the page meta, currently only the page number
+/**
+ * @method renderMeta
+ * Render the page meta, currently only the page number
+ *
+ * @param  {Object} argHash
+ */
 DV.Page.prototype.renderMeta = function(argHash){
   this.pageNumberEl.text('p. '+argHash.pageNumber);
   this.pageNumber = argHash.pageNumber;
 };
 
-// Load the actual image
+/**
+ * @method loadImage
+ * Load the actual image
+ *
+ * @param  {Object} argHash
+ */
 DV.Page.prototype.loadImage = function(argHash) {
   if(this.loadTimer){
     clearTimeout(this.loadTimer);
@@ -220,6 +269,9 @@ DV.Page.prototype.loadImage = function(argHash) {
   this.viewer.pageSet.redraw();
 };
 
+/**
+ * @method sizeImage
+ */
 DV.Page.prototype.sizeImage = function() {
   var width = this.model_pages.width;
   var height = this.model_pages.getPageHeight(this.index);
@@ -237,7 +289,12 @@ DV.Page.prototype.sizeImage = function() {
   this.pageEl.css({height: height, width: width});
 };
 
-// draw the image and update surrounding image containers with the right size
+/**
+ * @method drawImage
+ * draw the image and update surrounding image containers with the right size
+ *
+ * @param  {String} imageURL
+ */
 DV.Page.prototype.drawImage = function(imageURL) {
   var imageHeight = this.model_pages.getPageHeight(this.index);
   // var imageUrl = this.model_pages.imageURL(this.index);

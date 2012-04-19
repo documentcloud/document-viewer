@@ -1,11 +1,28 @@
+/**
+ * @class DV.Schema.helpers
+ */
 DV.Schema.helpers = {
 
+    /**
+     * @property {String} HOST_EXTRACTOR
+     * @static
+     */
     HOST_EXTRACTOR : (/https?:\/\/([^\/]+)\//),
 
+    /**
+     * @property {String} annotationClassName
+     * @static
+     */
     annotationClassName: '.DV-annotation',
 
-    // Bind all events for the docviewer
-    // live/delegate are the preferred methods of event attachment
+    /**
+     * @method bindEvents
+     * live/delegate are the preferred methods of event attachment
+     * Bind all events for the docviewer
+     * @static
+     *
+     * @param  {Object} context
+     */
     bindEvents: function(context){
       var boundZoom = this.events.compile('zoom');
       var doc       = context.models.document;
@@ -148,7 +165,11 @@ DV.Schema.helpers = {
 
     },
 
-    // Unbind jQuery events that have been bound to objects outside of the viewer.
+    /**
+     * @method unbindEvents
+     * Unbind jQuery events that have been bound to objects outside of the viewer.
+     * @static
+     */
     unbindEvents: function() {
       var viewer = this.viewer;
       var docId = viewer.schema.document.id;
@@ -163,8 +184,12 @@ DV.Schema.helpers = {
       _.each(viewer.observers, function(obs){ viewer.helpers.removeObserver(obs); });
     },
 
-    // We're entering the Notes tab -- make sure that there are no data-src
-    // attributes remaining.
+    /**
+     * @method ensureAnnotationImages
+     * We're entering the Notes tab -- make sure that there are no data-src
+     * attributes remaining.
+     * @static
+     */
     ensureAnnotationImages : function() {
       this.viewer.$(".DV-img[data-src]").each(function() {
         var el = DV.jQuery(this);
@@ -172,6 +197,10 @@ DV.Schema.helpers = {
       });
     },
 
+    /**
+     * @method startCheckTimer
+     * @static
+     */
     startCheckTimer: function(){
       var _t = this.viewer;
       var _check = function(){
@@ -180,10 +209,18 @@ DV.Schema.helpers = {
       this.viewer.checkTimer = setInterval(_check,100);
     },
 
+    /**
+     * @method stopCheckTimer
+     * @static
+     */
     stopCheckTimer: function(){
       clearInterval(this.viewer.checkTimer);
     },
 
+    /**
+     * @method blurWindow
+     * @static
+     */
     blurWindow: function(){
       if(this.viewer.isFocus === true){
         this.viewer.isFocus = false;
@@ -194,6 +231,10 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method focusOut
+     * @static
+     */
     focusOut: function(){
       if(this.viewer.activeElement != document.activeElement){
         this.viewer.activeElement = document.activeElement;
@@ -206,6 +247,10 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method focusWindow
+     * @static
+     */
     focusWindow: function(){
       if(this.viewer.isFocus === true){
         return;
@@ -216,6 +261,11 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method touchStart
+     * @param  {Event} e
+     * @static
+     */
     touchStart : function(e) {
       e.stopPropagation();
       e.preventDefault();
@@ -225,6 +275,11 @@ DV.Schema.helpers = {
       this._touchY = touch.pageY;
     },
 
+    /**
+     * @method touchMove
+     * @param  {Event} e
+     * @static
+     */
     touchMove : function(e) {
       var el    = e.currentTarget;
       var touch = e.changedTouches[0];
@@ -237,6 +292,11 @@ DV.Schema.helpers = {
       if (yDiff != 0 || xDiff != 0) this._moved = true;
     },
 
+    /**
+     * @method touchEnd
+     * @param  {Event} e
+     * @static
+     */
     touchEnd : function(e) {
       if (!this._moved) {
         var touch     = e.changedTouches[0];
@@ -251,7 +311,14 @@ DV.Schema.helpers = {
       this._moved = false;
     },
 
-    // Click to open a page's permalink.
+    /**
+     * @method permalinkPage
+     * Click to open a page's permalink.
+     * @static
+     *
+     * @param  {String} mode
+     * @param  {Event} e
+     */
     permalinkPage : function(mode, e) {
       if (mode == 'text') {
         var number  = this.viewer.models.document.currentPage();
@@ -264,7 +331,13 @@ DV.Schema.helpers = {
       this.viewer.history.save(mode + '/p' + number);
     },
 
-    // Click to open an annotation's permalink.
+    /**
+     * @method permalinkAnnotation
+     * Click to open an annotation's permalink.
+     * @static
+     *
+     * @param  {Event} e
+     */
     permalinkAnnotation : function(e) {
       var id   = this.viewer.$(e.target).closest('.DV-annotation').attr('data-id');
       var anno = this.viewer.models.annotations.getAnnotation(id);
@@ -277,11 +350,22 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method setDocHeight
+     * @static
+     * @param {Number} height
+     * @param {Number} diff
+     */
     setDocHeight:   function(height,diff) {
       this.elements.bar.css('height', height);
       this.elements.window[0].scrollTop += diff;
     },
 
+    /**
+     * @method getWindowDimensions
+     * @static
+     * @return {Object}
+     */
     getWindowDimensions: function(){
       var d = {
         height: window.innerHeight ? window.innerHeight : this.elements.browserWindow.height(),
@@ -290,16 +374,33 @@ DV.Schema.helpers = {
       return d;
     },
 
-    // Is the given URL on a remote domain?
+    /**
+     * @method isCrossDomain
+     * Is the given URL on a remote domain?
+     * @static
+     *
+     * @param  {String}  url
+     * @return {Boolean}
+     */
     isCrossDomain : function(url) {
       var match = url.match(this.HOST_EXTRACTOR);
       return match && (match[1] != window.location.host);
     },
 
+    /**
+     * @method resetScrollState
+     * @static
+     */
     resetScrollState: function(){
       this.elements.window.scrollTop(0);
     },
 
+    /**
+     * @method gotoPage
+     * @static
+     *
+     * @param  {Event} e
+     */
     gotoPage: function(e){
       e.preventDefault();
       var aid           = this.viewer.$(e.target).parents('.DV-annotation').attr('rel').replace('aid-','');
@@ -313,6 +414,10 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method openFullScreen
+     * @static
+     */
     openFullScreen : function() {
       var doc = this.viewer.schema.document;
       var url = doc.canonicalURL.replace(/#\S+$/,"");
@@ -339,18 +444,34 @@ DV.Schema.helpers = {
       window.open(url, "documentviewer", "toolbar=no,resizable=yes,scrollbars=no,status=no");
     },
 
-    // Determine the correct DOM page ordering for a given page index.
+    /**
+     * @method sortPages
+     * Determine the correct DOM page ordering for a given page index.
+     * @static
+     *
+     * @param  {Number} pageIndex
+     */
     sortPages : function(pageIndex) {
       if (pageIndex == 0 || pageIndex % 3 == 1) return ['p0', 'p1', 'p2'];
       if (pageIndex % 3 == 2)                   return ['p1', 'p2', 'p0'];
       if (pageIndex % 3 == 0)                   return ['p2', 'p0', 'p1'];
     },
 
+    /**
+     * @method addObserver
+     * @param {String} observerName
+     * @static
+     */
     addObserver: function(observerName){
       this.removeObserver(observerName);
       this.viewer.observers.push(observerName);
     },
 
+    /**
+     * @method removeObserver
+     * @static
+     * @param  {String} observerName
+     */
     removeObserver: function(observerName){
       var observers = this.viewer.observers;
       for(var i = 0,len=observers.length;i<len;i++){
@@ -379,10 +500,22 @@ DV.Schema.helpers = {
     //   viewer.windowDimensions = windowDimensions;
     // },
 
+    /**
+     * @method toggleContent
+     * @static
+     * @param  {String} toggleClassName
+     */
     toggleContent: function(toggleClassName){
       this.elements.viewer.removeClass('DV-viewText DV-viewSearch DV-viewDocument DV-viewAnnotations DV-viewThumbnails').addClass('DV-'+toggleClassName);
     },
 
+    /**
+     * @method jump
+     * @static
+     * @param  {Number} pageIndex
+     * @param  {Number} modifier
+     * @param  {Boolean} forceRedraw
+     */
     jump: function(pageIndex, modifier, forceRedraw){
       modifier = (modifier) ? parseInt(modifier, 10) : 0;
       var position = this.models.document.getOffset(parseInt(pageIndex, 10)) + modifier;
@@ -394,6 +527,11 @@ DV.Schema.helpers = {
       }
     },
 
+    /**
+     * @method shift
+     * @static
+     * @param  {Object} argHash
+     */
     shift: function(argHash){
       var windowEl        = this.elements.window;
       var scrollTopShift  = windowEl.scrollTop() + argHash.deltaY;
@@ -403,6 +541,11 @@ DV.Schema.helpers = {
       windowEl.scrollLeft(scrollLeftShift);
     },
 
+    /**
+     * @method getAppState
+     * @static
+     * @return {Object}
+     */
     getAppState: function(){
       var docModel = this.models.document;
       var currentPage = (docModel.currentIndex() == 0) ? 1 : docModel.currentPage();
@@ -410,6 +553,11 @@ DV.Schema.helpers = {
       return { page: currentPage, zoom: docModel.zoomLevel, view: this.viewer.state };
     },
 
+    /**
+     * @method constructPages
+     * @static
+     * @return {String}
+     */
     constructPages: function(){
       var pages = [];
       var totalPagesToCreate = (this.viewer.schema.data.totalPages < 3) ? this.viewer.schema.data.totalPages : 3;
@@ -422,13 +570,22 @@ DV.Schema.helpers = {
       return pages.join('');
     },
 
-    // Position the viewer on the page. For a full screen viewer, this means
-    // absolute from the current y offset to the bottom of the viewport.
+    /**
+     * @method positionViewer
+     * Position the viewer on the page. For a full screen viewer, this means
+     * absolute from the current y offset to the bottom of the viewport.
+     * @static
+     */
     positionViewer : function() {
       var offset = this.elements.viewer.position();
       this.elements.viewer.css({position: 'absolute', top: offset.top, bottom: 0, left: offset.left, right: offset.left});
     },
 
+    /**
+     * @method unsupportedBrowser
+     * @static
+     * @return {Boolean}
+     */
     unsupportedBrowser : function() {
       var browser = DV.jQuery.browser;
       if (!(browser.msie && parseFloat(browser.version, 10) <= 6.0)) return false;
@@ -436,6 +593,10 @@ DV.Schema.helpers = {
       return true;
     },
 
+    /**
+     * @method registerHashChangeEvents
+     * @static
+     */
     registerHashChangeEvents: function(){
       var events  = this.events;
       var history = this.viewer.history;
@@ -468,8 +629,12 @@ DV.Schema.helpers = {
       history.register(/search\/p(\d*)\/(.*)$/, _.bind(events.handleHashChangeViewSearchRequest,this.events));
     },
 
-    // Sets up the zoom slider to match the appropriate for the specified
-    // initial zoom level, and real document page sizes.
+    /**
+     * @method autoZoomPage
+     * Sets up the zoom slider to match the appropriate for the specified
+     * initial zoom level, and real document page sizes.
+     * @static
+     */
     autoZoomPage: function() {
       var windowWidth = this.elements.window.outerWidth(true);
       var zoom;
@@ -503,6 +668,10 @@ DV.Schema.helpers = {
       this.events.zoom(zoom);
     },
 
+    /**
+     * @method handleInitialState
+     * @static
+     */
     handleInitialState: function(){
       var initialRouteMatch = this.viewer.history.loadURL(true);
       if(!initialRouteMatch) {
