@@ -123,5 +123,21 @@
   });
 </script>
 
+<div id="doc5" style="margin: 30px; float: left; display: none;">
+</div>
+
+<script type="text/javascript">
+  var docUrl = 'http://www.documentcloud.org/documents/837007-defence-costings-for-special-purpose-aircraft.js';
+  DV.load(docUrl, {
+    container: '#doc5',
+    width: 650,
+    height: 500,
+    sidebar: false
+  });
+  setTimeout(function() {
+    document.getElementById('doc5').style.display = 'block';
+  }, 5000);
+</script>
+
 </body>
 </html>

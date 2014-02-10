@@ -26,6 +26,7 @@ DV.DocumentViewer = function(options) {
   this.dragReporter       = null;
   this.compiled           = {};
   this.tracker            = {};
+  this.visible            = true;
 
   this.onStateChangeCallbacks = [];
 
@@ -133,6 +134,7 @@ DV.load = function(documentRep, options) {
     viewer.loadModels();
     DV.jQuery(function() {
       viewer.open('InitialLoad');
+      viewer.visible = DV.jQuery(viewer.options.container).is(':visible');
       if (options.afterLoad) options.afterLoad(viewer);
       if (DV.afterLoad) DV.afterLoad(viewer);
       if (DV.recordHit) viewer.recordHit(DV.recordHit);
