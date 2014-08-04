@@ -155,9 +155,9 @@
   padding-left:45px;
 }
 
-.p0,
-.p1,
-.p2{
+.DV-docViewer .p0,
+.DV-docViewer .p1,
+.DV-docViewer .p2{
   display:none;
   padding-left:60px;
   z-index:15999;
