@@ -159,7 +159,6 @@
 .DV-docViewer .p1,
 .DV-docViewer .p2{
   display:none;
-  padding-left:60px;
   z-index:15999;
 }
 
