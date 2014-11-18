@@ -181,7 +181,7 @@ DV.Api.prototype = {
     if (redrawAll) {
       this.viewer.elements.window.removeClass('DV-coverVisible');
       this.viewer.pageSet.buildPages({noNotes : true});
-      this.viewer.pageSet.reflowPages();
+      this.viewer.helpers.autoZoomPage();
     }
   },
 
