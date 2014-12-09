@@ -83,6 +83,10 @@
   display: none;
 }
 
+.DV-supermini .DV-views .DV-thumbnailsView {
+  display: none;
+}
+
 /* Annotations ---------------------------------------*/
 
 .DV-mini .DV-annotationTab {
