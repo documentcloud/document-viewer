@@ -26,6 +26,9 @@
 .DV-docViewer.DV-searchable .DV-searchBox {
   display:inline;
 }
+.DV-docViewer.DV-supermini .DV-searchBox {
+  display: none;
+}
 
 .DV-docViewer .DV-searchInput {
   display: block;
@@ -34,7 +37,7 @@
   margin: 2px 5px 0 0;
   padding: 4px 20px 3px;
   height: auto;
-  width:210px;
+  width:215px;
   font-size: 11px;
   line-height: 14px;
   background: #FFF url(../../../images/DV/embed/search_icon.png) no-repeat 5px 5px;
@@ -42,7 +45,7 @@
 }
 
 .DV-docViewer .DV-searchInput[type=text] {
-  margin: 4px 10px 0 0;
+  margin: 2px 5px 0 0;
 }
 .DV-searchInput.placeholder {
   color: #A0A0A0;

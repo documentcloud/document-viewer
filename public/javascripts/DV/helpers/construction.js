@@ -266,13 +266,8 @@ DV._.extend(DV.Schema.helpers, {
     }
 
     this.viewer.elements.viewer.toggleClass('DV-hideSidebar', !this.viewer.options.sidebarVisible);
-
-    // Check if the zoom is showing, and if not, shorten the width of search
-    DV._.defer(DV._.bind(function() {
-      if ((this.elements.viewer.width() <= 700) && (showAnnotations || showPages || showSearch)) {
-        this.viewer.$('.DV-controls').addClass('DV-narrowControls');
-      }
-    }, this));
+    this.viewer.elements.viewer.toggleClass('DV-mini', !this.viewer.options.sidebarVisible);
+    this.viewer.elements.viewer.toggleClass('DV-supermini', this.viewer.elements.viewer.width() < 500);
 
     // Set the currentPage element reference.
     this.elements.currentPage = this.viewer.$('span.DV-currentPage');

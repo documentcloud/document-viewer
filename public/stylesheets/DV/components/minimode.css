@@ -2,11 +2,18 @@
 /* = Header = */
 /* ========== */
 
-.DV-docViewer .DV-narrowControls .DV-searchBar {
+.DV-mini .DV-searchBox {
+  margin-top: 2px;
+}
+  .DV-mini .DV-searchInput {
+    padding: 3px 20px 2px;
+  }
+
+.DV-mini .DV-searchBar {
   right: 16px;
 }
 
-.DV-docViewer .DV-narrowControls .DV-searchInput {
+.DV-mini .DV-searchInput {
   width: 80px;
 }
 

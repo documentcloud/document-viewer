@@ -5,7 +5,7 @@
   margin: 7px 20px 0 0;
   position: relative;
 }
-  .DV-narrowControls .DV-zoomControls {
+  .DV-mini .DV-zoomControls {
     margin-right: 15px;
   }
 
@@ -28,7 +28,7 @@
   position:relative;
   cursor: pointer;
 }
-  .DV-narrowControls .DV-zoomBox {
+  .DV-mini .DV-zoomBox {
     background: url(../../../images/DV/embed/bar_small.png) repeat-x 0 88%;
     width:49px;
   }

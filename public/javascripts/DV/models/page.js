@@ -57,7 +57,7 @@ DV.model.Pages.prototype = {
 
   // Return the appropriate padding for the size of the viewer.
   getPadding: function() {
-    if (this.viewer.options.mini) {
+    if (this.viewer.elements.viewer.hasClass('DV-mini')) {
       return this.MINI_PADDING;
     } else if (this.viewer.options.zoom == 'auto') {
       return this.REDUCED_PADDING;
