@@ -67,7 +67,9 @@ DV._.extend(DV.Schema.helpers, {
     }
 
     if (options.responsive) {
-      DV.jQuery(options.container).css({
+      var container = DV.jQuery(options.container);
+      this.viewer.options.sidebarVisible = (container.width() - 2) >= this.viewer.helpers.RESPONSIVE_MIN_SIDEBAR_WIDTH;
+      container.css({
         position: 'relative',
         height: options.height
       });
