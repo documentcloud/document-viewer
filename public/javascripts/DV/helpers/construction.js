@@ -10,18 +10,19 @@ DV._.extend(DV.Schema.helpers, {
     var doc         = this.viewer.schema.document;
     var pagesHTML   = this.constructPages();
     var description = (doc.description) ? doc.description : null;
-    var storyURL = doc.resources.related_article;
+    var storyURL    = doc.resources.related_article;
+    var options     = this.viewer.options;
 
     var headerHTML  = JST.header({
-      options     : this.viewer.options,
+      options     : options,
       id          : doc.id,
       story_url   : storyURL,
       title       : doc.title || ''
     });
-    var footerHTML = JST.footer({options : this.viewer.options});
+    var footerHTML = JST.footer({options : options});
 
     var pdfURL = doc.resources.pdf;
-    pdfURL = pdfURL && this.viewer.options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
+    pdfURL = pdfURL && options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
 
     var contribs = doc.contributor && doc.contributor_organization &&
                    ('' + doc.contributor + ', '+ doc.contributor_organization);
@@ -30,7 +31,7 @@ DV._.extend(DV.Schema.helpers, {
     var printNotesURL = (showAnnotations) && doc.resources.print_annotations;
 
     var viewerOptions = {
-      options : this.viewer.options,
+      options : options,
       pages: pagesHTML,
       header: headerHTML,
       footer: footerHTML,
@@ -39,21 +40,41 @@ DV._.extend(DV.Schema.helpers, {
       story_url: storyURL,
       print_notes_url: printNotesURL,
       descriptionContainer: JST.descriptionContainer({ description: description}),
-      autoZoom: this.viewer.options.zoom == 'auto',
+      autoZoom: options.zoom == 'auto',
       mini: false
     };
 
-    var width  = this.viewer.options.width;
-    var height = this.viewer.options.height;
-    if (width && height) {
+    if (options.responsive) {
+      if (!options.height) {
+        var winHeight = DV.jQuery(window).height();
+        var toSubtract = options.responsiveOffset == null ? 100 : options.responsiveOffset;
+        options.height = winHeight - toSubtract;
+      }
+    }
+
+    var width  = options.width;
+    var height = options.height;
+    if (width && height && !options.responsive) {
       if (width < 500) {
-        this.viewer.options.mini = true;
+        options.mini = true;
         viewerOptions.mini = true;
       }
-      DV.jQuery(this.viewer.options.container).css({
+      DV.jQuery(options.container).css({
         position: 'relative',
-        width: this.viewer.options.width,
-        height: this.viewer.options.height
+        width: options.width,
+        height: options.height
+      });
+    }
+
+    if (options.responsive) {
+      DV.jQuery(options.container).css({
+        position: 'relative',
+        height: options.height
+      });
+
+      var viewer = this.viewer;
+      DV.jQuery(window).resize(function() {
+        viewer.helpers.responsiveRedraw();
       });
     }
 
@@ -174,13 +195,14 @@ DV._.extend(DV.Schema.helpers, {
     // Hide the overflow of the body, unless we're positioned.
     var containerEl = DV.jQuery(this.viewer.options.container);
     var position = containerEl.css('position');
-    if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize) {
+    if (position != 'relative' && position != 'absolute' && !this.viewer.options.fixedSize && !this.viewer.options.responsive) {
       DV.jQuery("html, body").css({overflow : 'hidden'});
       // Hide the border, if we're a full-screen viewer in the body tag.
       if (containerEl.offset().top == 0) {
         this.viewer.elements.viewer.css({border: 0});
       }
     }
+    this.viewer.helpers._prevWidth = this.viewer.elements.viewer.width();
 
     // Hide and show navigation flags:
     var showAnnotations = this.showAnnotations();
@@ -188,7 +210,7 @@ DV._.extend(DV.Schema.helpers, {
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
                           (!this.viewer.options.width || this.viewer.options.width >= 540);
-    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebar);
+    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebarVisible);
 
 
     // Hide annotations, if there are none:
@@ -224,7 +246,7 @@ DV._.extend(DV.Schema.helpers, {
     // Remove and re-render the nav controls.
     // Don't show the nav controls if there's no sidebar, and it's a one-page doc.
     this.viewer.$('.DV-navControls').remove();
-    if (showPages || this.viewer.options.sidebar) {
+    if (showPages || this.viewer.options.sidebarVisible) {
       var navControls = JST.navControls({
         totalPages: this.viewer.schema.data.totalPages,
         totalAnnotations: this.viewer.schema.data.totalAnnotations
@@ -243,9 +265,7 @@ DV._.extend(DV.Schema.helpers, {
       }
     }
 
-    if (this.viewer.options.sidebar) {
-      this.viewer.$('.DV-sidebar').show();
-    }
+    this.viewer.elements.viewer.toggleClass('DV-hideSidebar', !this.viewer.options.sidebarVisible);
 
     // Check if the zoom is showing, and if not, shorten the width of search
     DV._.defer(DV._.bind(function() {

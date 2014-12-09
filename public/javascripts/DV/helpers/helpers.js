@@ -2,6 +2,8 @@ DV.Schema.helpers = {
 
     HOST_EXTRACTOR : (/https?:\/\/([^\/]+)\//),
 
+    RESPONSIVE_MIN_SIDEBAR_WIDTH: 900,
+
     annotationClassName: '.DV-annotation',
 
     // Bind all events for the docviewer
@@ -514,6 +516,15 @@ DV.Schema.helpers = {
       this.viewer.models.document.ZOOM_RANGES = ranges;
       this.viewer.slider.slider({'value': parseInt(DV._.indexOf(ranges, zoom), 10)});
       this.events.zoom(zoom);
+    },
+
+    responsiveRedraw: function() {
+      var width = this.viewer.elements.viewer.width();
+      if (width != this._prevWidth) {
+        this.viewer.options.sidebarVisible = width >= this.viewer.helpers.RESPONSIVE_MIN_SIDEBAR_WIDTH;
+        this.viewer.api.redraw(true);
+        this._prevWidth = width;
+      }
     },
 
     handleInitialState: function(){

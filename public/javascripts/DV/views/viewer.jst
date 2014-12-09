@@ -21,7 +21,7 @@
         </div>
       </div>
     
-      <div class="DV-pages <% if (!options.sidebar) { %>DV-hide-sidebar<% } %>">
+      <div class="DV-pages <% if (!options.sidebarVisible) { %>DV-hide-sidebar<% } %>">
         <div class="DV-paper">
           <div class="DV-thumbnails"></div>
           <div class="DV-pageCollection">
@@ -42,12 +42,12 @@
         </div>
       </div>
     
-      <div width="265px" class="DV-sidebar <% if (!options.sidebar) { %>DV-hide<% } %>" style="display:none;">
+      <div width="265px" class="DV-sidebar">
         <div class="DV-well">
     
           <div class="DV-sidebarSpacer"></div>
           
-          <% if (options.sidebar) { %>
+          <% if (options.sidebarVisible) { %>
             <div class="DV-navControlsContainer">
             </div>
           <% } %>
