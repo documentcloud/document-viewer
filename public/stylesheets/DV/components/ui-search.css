@@ -68,16 +68,13 @@
   visibility: hidden;
   position: absolute;
   right: 17px;
-  top: 10px;
+  top: 8px;
   background: transparent url(../../../images/DV/embed/close.png) no-repeat 0 0;
   width: 11px;
   height: 11px;
   cursor: pointer;
   z-index: 5;
 }
-  .DV-ie .DV-searchDocument .DV-searchInput-cancel {
-    top: 7px;
-  }
 
 .DV-searchDocument .DV-searchInputWrap.DV-searchInput-show-search-cancel .DV-searchInput-cancel {
   visibility: visible;

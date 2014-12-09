@@ -17,6 +17,10 @@
   width: 80px;
 }
 
+.DV-mini .DV-searchDocument .DV-searchInput-cancel {
+  top: 7px;
+}
+
 /* ================== */
 /* = Page Container = */
 /* ================== */

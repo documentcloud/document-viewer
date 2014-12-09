@@ -210,8 +210,6 @@ DV._.extend(DV.Schema.helpers, {
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
                           (!this.viewer.options.width || this.viewer.options.width >= 540);
-    var noFooter = (!showAnnotations && !showPages && !showSearch && !this.viewer.options.sidebarVisible);
-
 
     // Hide annotations, if there are none:
     var $annotationsView = this.viewer.$('.DV-annotationView');
@@ -254,20 +252,16 @@ DV._.extend(DV.Schema.helpers, {
       this.viewer.$('.DV-navControlsContainer').html(navControls);
     }
 
-    this.viewer.$('.DV-fullscreenControl').remove();
     if (this.viewer.schema.document.canonicalURL) {
       var fullscreenControl = JST.fullscreenControl({});
-      if (noFooter) {
-        this.viewer.$('.DV-collapsibleControls').prepend(fullscreenControl);
-        this.elements.viewer.addClass('DV-hideFooter');
-      } else {
-        this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
-      }
+      this.viewer.$('.DV-fullscreenContainer').html(fullscreenControl);
     }
 
-    this.viewer.elements.viewer.toggleClass('DV-hideSidebar', !this.viewer.options.sidebarVisible);
-    this.viewer.elements.viewer.toggleClass('DV-mini', !this.viewer.options.sidebarVisible);
-    this.viewer.elements.viewer.toggleClass('DV-supermini', this.viewer.elements.viewer.width() < 500);
+    var v = this.viewer.elements.viewer;
+    v.toggleClass('DV-hideSidebar', !this.viewer.options.sidebarVisible);
+    v.toggleClass('DV-mini', !this.viewer.options.sidebarVisible);
+    v.toggleClass('DV-supermini', this.viewer.elements.viewer.width() < 500);
+    v.toggleClass('DV-hideFooter', this.viewer.options.sidebarVisible);
 
     // Set the currentPage element reference.
     this.elements.currentPage = this.viewer.$('span.DV-currentPage');
