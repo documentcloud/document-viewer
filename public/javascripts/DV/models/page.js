@@ -57,7 +57,7 @@ DV.model.Pages.prototype = {
 
   // Return the appropriate padding for the size of the viewer.
   getPadding: function() {
-    if (this.viewer.options.mini) {
+    if (this.viewer.elements.viewer.hasClass('DV-mini')) {
       return this.MINI_PADDING;
     } else if (this.viewer.options.zoom == 'auto') {
       return this.REDUCED_PADDING;
@@ -87,7 +87,9 @@ DV.model.Pages.prototype = {
 
     this.viewer.elements.sets.width(this.zoomLevel);
     this.viewer.elements.collection.css({width : this.width + padding });
-    this.viewer.$('.DV-textContents').css({'font-size' : this.zoomLevel * 0.02 + 'px'});
+    var minFontSize = 10;
+    var fontSize = Math.max(minFontSize, this.zoomLevel * 0.02);
+    this.viewer.$('.DV-textContents').css({'font-size' : fontSize + 'px'});
   },
 
   // Update the height for a page, when its real image has loaded.

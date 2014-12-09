@@ -2,12 +2,23 @@
 /* = Header = */
 /* ========== */
 
-.DV-docViewer .DV-narrowControls .DV-searchBar {
+.DV-mini .DV-searchBox {
+  margin-top: 2px;
+}
+  .DV-mini .DV-searchInput {
+    padding: 3px 20px 2px;
+  }
+
+.DV-mini .DV-searchBar {
   right: 16px;
 }
 
-.DV-docViewer .DV-narrowControls .DV-searchInput {
+.DV-mini .DV-searchInput {
   width: 80px;
+}
+
+.DV-mini .DV-searchDocument .DV-searchInput-cancel {
+  top: 7px;
 }
 
 /* ================== */
@@ -19,6 +30,9 @@
 }
 .DV-mini .DV-textPage {
   margin-left: 7px;
+}
+.DV-mini .DV-textContents {
+  margin: 20px;
 }
 
 .DV-autoZoom .p0,
@@ -63,6 +77,14 @@
   text-align: center;
   width: 30px;
   padding-left: 0px;
+}
+
+.DV-mini .DV-textCurrentPage {
+  display: none;
+}
+
+.DV-supermini .DV-views .DV-thumbnailsView {
+  display: none;
 }
 
 /* Annotations ---------------------------------------*/

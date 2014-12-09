@@ -2,6 +2,10 @@ DV.Schema.helpers = {
 
     HOST_EXTRACTOR : (/https?:\/\/([^\/]+)\//),
 
+    RESPONSIVE_MIN_SIDEBAR_WIDTH: 900,
+
+    RESPONSIVE_DEFAULT_OFFSET: 100,
+
     annotationClassName: '.DV-annotation',
 
     // Bind all events for the docviewer
@@ -32,8 +36,8 @@ DV.Schema.helpers = {
 
 
       var states = context.states;
-      viewer.$('.DV-navControls').delegate('span.DV-next','click', compiled.next);
-      viewer.$('.DV-navControls').delegate('span.DV-previous','click', compiled.previous);
+      viewer.elements.viewer.delegate('.DV-next','click', compiled.next);
+      viewer.elements.viewer.delegate('.DV-previous','click', compiled.previous);
 
       viewer.$('.DV-annotationView').delegate('.DV-trigger','click',function(e){
         e.preventDefault();
@@ -514,6 +518,15 @@ DV.Schema.helpers = {
       this.viewer.models.document.ZOOM_RANGES = ranges;
       this.viewer.slider.slider({'value': parseInt(DV._.indexOf(ranges, zoom), 10)});
       this.events.zoom(zoom);
+    },
+
+    responsiveRedraw: function() {
+      var width = this.viewer.elements.viewer.width();
+      if (width != this._prevWidth) {
+        this.viewer.options.sidebarVisible = width >= this.viewer.helpers.RESPONSIVE_MIN_SIDEBAR_WIDTH;
+        this.viewer.api.redraw(true);
+        this._prevWidth = width;
+      }
     },
 
     handleInitialState: function(){

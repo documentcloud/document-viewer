@@ -123,7 +123,8 @@ DV.load = function(documentRep, options) {
     sidebar   : true
   };
   options            = DV._.extend({}, defaults, options);
-  options.fixedSize  = !!(options.width || options.height);
+  options.sidebarVisible = options.sidebar;
+  options.fixedSize  = !options.responsive && (!!(options.width || options.height));
   var viewer         = new DV.DocumentViewer(options);
   DV.viewers[id]     = viewer;
   // Once we have the JSON representation in-hand, finish loading the viewer.

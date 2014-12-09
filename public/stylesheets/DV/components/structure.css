@@ -110,11 +110,11 @@
   color:#666;
 }
 
-.DV-sidebar.DV-hide {
+.DV-hideSidebar .DV-sidebar, .DV-sidebar.DV-hide {
   display: none !important;
 }
 
-.DV-pages.DV-hide-sidebar {
+.DV-hideSidebar .DV-pages {
   right: 0;
 }
 
