@@ -523,7 +523,9 @@ DV.Schema.helpers = {
     responsiveRedraw: function() {
       var width = this.viewer.elements.viewer.width();
       if (width != this._prevWidth) {
-        this.viewer.options.sidebarVisible = width >= this.viewer.helpers.RESPONSIVE_MIN_SIDEBAR_WIDTH;
+        if (this.viewer.options.sidebar !== false) {
+          this.viewer.options.sidebarVisible = width >= this.viewer.helpers.RESPONSIVE_MIN_SIDEBAR_WIDTH;
+        }
         this.viewer.api.redraw(true);
         this._prevWidth = width;
       }
