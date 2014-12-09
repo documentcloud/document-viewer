@@ -31,6 +31,9 @@
 .DV-mini .DV-textPage {
   margin-left: 7px;
 }
+.DV-mini .DV-textContents {
+  margin: 20px;
+}
 
 .DV-autoZoom .p0,
 .DV-autoZoom .p1,
@@ -74,6 +77,10 @@
   text-align: center;
   width: 30px;
   padding-left: 0px;
+}
+
+.DV-mini .DV-textCurrentPage {
+  display: none;
 }
 
 /* Annotations ---------------------------------------*/
