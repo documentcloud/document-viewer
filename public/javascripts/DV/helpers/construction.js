@@ -19,7 +19,7 @@ DV._.extend(DV.Schema.helpers, {
       story_url   : storyURL,
       title       : doc.title || ''
     });
-    var footerHTML = JST.footer({options : options});
+    var footerHTML = JST.footer({options : {}});
 
     var pdfURL = doc.resources.pdf;
     pdfURL = pdfURL && options.pdf !== false ? '<a target="_blank" href="' + pdfURL + '">Original Document (PDF) &raquo;</a>' : '';
