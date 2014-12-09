@@ -47,7 +47,7 @@ DV._.extend(DV.Schema.helpers, {
     if (options.responsive) {
       if (!options.height) {
         var winHeight = DV.jQuery(window).height();
-        var toSubtract = options.responsiveOffset == null ? 100 : options.responsiveOffset;
+        var toSubtract = options.responsiveOffset == null ? this.viewer.helpers.RESPONSIVE_DEFAULT_OFFSET : options.responsiveOffset;
         options.height = winHeight - toSubtract;
       }
     }

@@ -4,6 +4,8 @@ DV.Schema.helpers = {
 
     RESPONSIVE_MIN_SIDEBAR_WIDTH: 900,
 
+    RESPONSIVE_DEFAULT_OFFSET: 100,
+
     annotationClassName: '.DV-annotation',
 
     // Bind all events for the docviewer
