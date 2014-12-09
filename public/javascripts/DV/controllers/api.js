@@ -196,6 +196,11 @@ DV.Api.prototype = {
   getAnnotation : function(aid) {
     return this.viewer.models.annotations.getAnnotation(aid);
   },
+  
+  setCurrentAnnotation: function(aid) {
+    var noteModel = this.viewer.models.annotations.getAnnotation(aid);
+    this.viewer.pageSet.showAnnotation(noteModel);
+  },
 
   // Add a new annotation to the document, prefilled to any extent.
   addAnnotation : function(anno) {
