@@ -213,7 +213,7 @@ DV._.extend(DV.Schema.helpers, {
     var showPages       = this.models.document.totalPages > 1;
     var showSearch      = (this.viewer.options.search !== false) &&
                           (this.viewer.options.text !== false) &&
-                          (!this.viewer.options.width || this.viewer.options.width >= 540);
+                          (!this.viewer.options.width || this.viewer.elements.viewer.width() >= 540);
 
     // Hide annotations, if there are none:
     var $annotationsView = this.viewer.$('.DV-annotationView');
