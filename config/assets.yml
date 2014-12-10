@@ -29,8 +29,13 @@ stylesheets:
   viewer:
     - public/stylesheets/DV/components/reset.css
     - public/stylesheets/DV/components/structure.css
+    - public/stylesheets/DV/components/annotations.css
+    - public/stylesheets/DV/components/pages.css
     - public/stylesheets/DV/components/ui.css
-    - public/stylesheets/DV/components/*.css
+    - public/stylesheets/DV/components/ui-*.css
+    - public/stylesheets/DV/components/view-*.css
+    - public/stylesheets/DV/components/unsupported.css
+    - public/stylesheets/DV/components/minimode.css
     - public/stylesheets/DV/themes/plain.css
 
   print:
