@@ -37,7 +37,7 @@
   background: #f5f6f7 url(../../../images/DV/embed/pagesbg.jpg);
 }
   .DV-paper {
-    padding-top: 1px; /* needed to uncollapse the margin */
+    padding-top: 20px; /* needed to uncollapse the margin */
   }
 
 .DV-privateLock, .DV-showEdit, .DV-permalink {

@@ -71,9 +71,10 @@
 }
 
 .DV-pageCollection{
-  margin: 20px auto;
+  margin: 0px auto;
   position:relative;
   z-index:0;
+  background: #f5f6f7 url(../../../images/DV/embed/pagesbg.jpg);
 }
 
 .DV-pageCollection{
