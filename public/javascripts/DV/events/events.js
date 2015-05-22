@@ -63,7 +63,8 @@ DV.Schema.events = {
 
     var me = this;
 
-    var processText = function(text) {
+    var processText = function(raw_text) {
+      var text = DV._.escape(raw_text);
 
       var pageNumber = parseInt(pageIndex,10)+1;
       me.viewer.$('.DV-textContents').replaceWith('<pre class="DV-textContents">' + text + '</pre>');
