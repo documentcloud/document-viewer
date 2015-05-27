@@ -67,10 +67,10 @@
                 </div>
               <% } %>
               <div class="DV-storyLink" style="<%= story_url ? '' : 'display:none' %>">
-                <a target="_blank" href="<%= story_url %>">Related Article &raquo;</a>
+                <a target="_blank" href="<%- story_url %>">Related Article &raquo;</a>
               </div>
               <% if (contributors) { %>
-                <div class="DV-contributor">Contributed by: <%= contributors %></div>
+                <div class="DV-contributor">Contributed by: <%- contributors %></div>
               <% } %>
             </div>
             <div class="DV-logo"><a class="DV-logoLink" href="http://www.documentcloud.org"></a></div>

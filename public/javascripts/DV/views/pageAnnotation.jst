@@ -11,8 +11,8 @@
         <span class="DV-trigger DV-annotationNext" title="Next Annotation">Next</span>
       </div>
       <div class="DV-annotationGoto DV-editHidden"><div class="DV-trigger">p. <%= pageNumber %></div></div>
-      <div class="DV-annotationTitle DV-editHidden"><%= title %></div>
-      <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%= title.replace(/"/g, '&quot;') %>" />
+      <div class="DV-annotationTitle DV-editHidden"><%- title %></div>
+      <input class="DV-annotationTitleInput DV-editVisible" type="text" placeholder="Annotation Title" value="<%- title %>" />
       <% if (access == 'exclusive') { %>
         <div class="DV-annotationDraftLabel DV-editHidden DV-interface">Draft</div>
       <% } else if (access == 'private') { %>
@@ -23,14 +23,14 @@
     </div>
 
     <div class="DV-annotationBody DV-editHidden">
-      <%= text %>
+      <%- text %>
     </div>
-    <textarea class="DV-annotationTextArea DV-editVisible" style="width: <%= bWidth %>px;"><%= text %></textarea>
+    <textarea class="DV-annotationTextArea DV-editVisible" style="width: <%= bWidth %>px;"><%- text %></textarea>
 
     <div class="DV-annotationMeta <%= accessClass %>">
       <% if (author) { %>
         <div class="DV-annotationAuthor DV-interface DV-editHidden">
-          Annotated by: <%= author %><% if (author_organization) { %>, <i><%= author_organization %></i><% } %>
+          Annotated by: <%- author %><% if (author_organization) { %>, <i><%- author_organization %></i><% } %>
         </div>
       <% } %>
       <% if (access == 'exclusive') { %>
