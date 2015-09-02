@@ -1,22 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="ClearType" content="true">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Document Title</title>
-
-
-   <!--[if (!IE)|(gte IE 8)]><!-->
- <link href="public/assets/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css" />
- <link href="public/assets/plain-datauri.css" media="screen" rel="stylesheet" type="text/css" />
- <link href="public/assets/plainviewer.css" media="screen" rel="stylesheet" type="text/css" />
- <!--<![endif]-->
- <!--[if lte IE 7]>
- <link href="public/assets/viewer.css" media="screen" rel="stylesheet" type="text/css" />
- <link href="public/assets/plain.css" media="screen" rel="stylesheet" type="text/css" />
- <![endif]-->
-
+<!--[if (!IE)|(gte IE 8)]><!-->
+  <link href="public/assets/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css">
+<!--<![endif]-->
+<!--[if lte IE 7]>
+  <link href="public/assets/viewer.css" media="screen" rel="stylesheet" type="text/css">
+<![endif]-->
 </head>
 <body>
 
@@ -33,10 +26,10 @@
 
 <script src="public/assets/viewer.js" type="text/javascript" charset="utf-8"></script>
 <script src="public/assets/templates.js" type="text/javascript" charset="utf-8"></script>
-
 <script type="text/javascript">
-  DV.load('http://documents.nytimes.com/goldman-sachs-internal-emails.json', { container: '#DV-container' });
+  DV.load('https://www.documentcloud.org/documents/282753-lefler-thesis.json',
+    { container: '#DV-container' }
+  );
 </script>
-
 </body>
 </html>
