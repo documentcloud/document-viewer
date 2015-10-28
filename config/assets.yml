@@ -1,6 +1,5 @@
 embed_images: datauri
 template_function: DV._.template
-# compress_assets: off
 
 javascripts:
   viewer:
