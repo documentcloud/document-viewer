@@ -1,0 +1,6 @@
+template_function: DV._.template
+gzip_assets: off
+
+javascripts:
+  templates:
+    - public/javascripts/DV/views/*.jst
