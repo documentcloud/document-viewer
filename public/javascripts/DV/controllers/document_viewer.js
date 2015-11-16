@@ -104,13 +104,12 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   var slug = this.api.getId();
   var id   = parseInt(slug, 10);
   var key  = encodeURIComponent('document:' + id + ':' + url);
-
   if (DV._.isUndefined(DV.viewers) || DV._.isUndefined(DV.viewers[slug]) || DV._.isUndefined(DV.viewers[slug].elements) || DV._.isUndefined(DV.viewers[slug].elements.viewer)) {
     var selector = '.DV-docViewer';
   } else {
     var selector = DV.viewers[slug].elements.viewer;
   }
-  var $viewer  = DV.jQuery(selector);
+  var $viewer = DV.jQuery(selector);
   $viewer.append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
