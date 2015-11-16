@@ -103,7 +103,7 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   url = url.replace(/[\/]+$/, '');
   var id   = parseInt(this.api.getId(), 10);
   var key  = encodeURIComponent('document:' + id + ':' + url);
-  DV.jQuery(document.body).append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
+  DV.jQuery('.DV-docViewer').append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
 // jQuery object, scoped to this viewer's container.

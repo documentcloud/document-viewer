@@ -4,6 +4,15 @@
   line-height: normal;
 }
 
+.DV-docViewer .DV-pixelping {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  z-index: 0;
+}
+
 .DV-docViewer-Container{
   position:absolute;
   top: 38px; bottom: 33px; left: 0px; right: 0px;
