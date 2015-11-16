@@ -101,9 +101,17 @@ DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
   var url = loc.protocol + '//' + loc.host + loc.pathname;
   if (url.match(/^file:/)) return false;
   url = url.replace(/[\/]+$/, '');
-  var id   = parseInt(this.api.getId(), 10);
+  var slug = this.api.getId();
+  var id   = parseInt(slug, 10);
   var key  = encodeURIComponent('document:' + id + ':' + url);
-  DV.jQuery('.DV-docViewer').append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
+
+  if (DV._.isUndefined(DV.viewers) || DV._.isUndefined(DV.viewers[slug]) || DV._.isUndefined(DV.viewers[slug].elements) || DV._.isUndefined(DV.viewers[slug].elements.viewer)) {
+    var selector = '.DV-docViewer';
+  } else {
+    var selector = DV.viewers[slug].elements.viewer;
+  }
+  var $viewer  = DV.jQuery(selector);
+  $viewer.append('<img class="DV-pixelping" alt="" width="1" height="1" src="' + hitUrl + '?key=' + key + '" />');
 };
 
 // jQuery object, scoped to this viewer's container.
