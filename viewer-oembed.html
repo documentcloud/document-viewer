@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Document Title</title>
+</head>
+<body>
+
+  <div id="embed-target"></div>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $.getJSON('https://www.documentcloud.org/api/oembed.json?url=https%3A%2F%2Fwww.documentcloud.org%2Fdocuments%2F282753-lefler-thesis.html&responsive=true', function(data){
+        if (data.html) {
+          $('#embed-target').html(data.html);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
