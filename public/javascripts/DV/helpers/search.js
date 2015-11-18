@@ -28,10 +28,10 @@ DV._.extend(DV.Schema.helpers, {
     DV.jQuery.ajax({url : searchURI, dataType : 'json', success : handleResponse, error : failResponse});
   },
   acceptInputCallBack: function(){
-    var pageIndex = parseInt(this.elements.currentPage.text(),10) - 1;
+    var pageIndex = this.elements.currentPage.first().text();
     // sanitize input
 
-    pageIndex       = (pageIndex === '') ? 0 : pageIndex;
+    pageIndex       = (pageIndex === '') ? 0 : parseInt(pageIndex, 10) - 1;
     pageIndex       = (pageIndex < 0) ? 0 : pageIndex;
     pageIndex       = (pageIndex+1 > this.models.document.totalPages) ? this.models.document.totalPages-1 : pageIndex;
     var pageNumber  = pageIndex+1;
