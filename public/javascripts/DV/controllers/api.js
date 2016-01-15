@@ -42,6 +42,11 @@ DV.Api.prototype = {
     return parseInt(this.getId(), 10);
   },
 
+  getMetadata : function(key) {
+    var metadata = this.viewer.schema.document.data;
+    return DV._.isUndefined(metadata) ? '' : metadata[key];
+  },
+
   // Return the current zoom factor of the document.
   currentZoom : function() {
     var doc = this.viewer.models.document;
