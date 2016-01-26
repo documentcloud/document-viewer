@@ -39,7 +39,7 @@ DV._.extend(DV.Schema.helpers, {
       contributors: contribs,
       story_url: storyURL,
       print_notes_url: printNotesURL,
-      descriptionContainer: JST.descriptionContainer({ description: description}),
+      descriptionContainer: JST.descriptionContainer({ description: description, title: doc.title || (description ? 'Description' : null)}),
       autoZoom: options.zoom == 'auto',
       mini: false
     };

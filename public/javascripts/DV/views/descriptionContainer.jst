@@ -1,9 +1,15 @@
-<% if (description) { %>
+<% if (title) { %>
   <div class="DV-description">
+    <% if (description) { %>
     <div class="DV-descriptionHead">
       <span class="DV-descriptionToggle DV-showDescription DV-trigger"> Toggle Description</span>
-      Description
+      <%- title %>
     </div>
     <div class="DV-descriptionText"><%= description %></div>
+    <% } else { %>
+    <div class="DV-descriptionHead">
+      <%- title %>
+    </div>
+    <% } %>
   </div>
 <% } %>

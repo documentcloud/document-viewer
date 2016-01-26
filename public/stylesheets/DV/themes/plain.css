@@ -95,10 +95,28 @@
 .DV-descriptionHead {
   text-transform: none;
   color: black;
+  position: relative;
+  padding-left: 13px;
+  font: 700 14px/18px Arial,Helvetica,sans-serif;
 }
 .DV-descriptionText {
   background: white;
   padding: 5px 14px 10px;
+}
+
+.DV-descriptionHead .DV-descriptionToggle{
+  float:none;
+  display:block;
+  margin-right:0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.DV-descriptionHead .DV-descriptionToggle{
+  background-position: 0 -29px;
+}
+.DV-descriptionHead .DV-descriptionToggle.DV-showDescription{
+  background-position: 0 7px;
 }
 
 .DV-logo {
