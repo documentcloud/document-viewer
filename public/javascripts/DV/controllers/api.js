@@ -98,8 +98,9 @@ DV.Api.prototype = {
   // Set the document's description and update the sidebar.
   setDescription : function(desc) {
     this.viewer.schema.document.description = desc;
+    // Refresh description block in sidebar
     this.viewer.$('.DV-description').remove();
-    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({description: desc}));
+    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({ description: desc, title: this.getTitle() || (desc ? 'Description' : null)}));
     this.viewer.helpers.displayNavigation();
   },
 
@@ -134,6 +135,11 @@ DV.Api.prototype = {
   setTitle : function(title) {
     this.viewer.schema.document.title = title;
     document.title = title;
+    // Refresh description block in sidebar
+    var desc = this.getDescription();
+    this.viewer.$('.DV-description').remove();
+    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({ description: desc, title: title || (desc ? 'Description' : null)}));
+    this.viewer.helpers.displayNavigation();
   },
 
   getSource : function() {
