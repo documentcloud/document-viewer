@@ -99,8 +99,9 @@ DV.Api.prototype = {
   setDescription : function(desc) {
     this.viewer.schema.document.description = desc;
     // Refresh description block in sidebar
+    var title = this.getTitle();
     this.viewer.$('.DV-description').remove();
-    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({ description: desc, title: this.getTitle() || (desc ? 'Description' : null)}));
+    this.viewer.$('.DV-navigation').prepend(JST.descriptionContainer({ description: desc, title: title || (desc ? 'Description' : null)}));
     this.viewer.helpers.displayNavigation();
   },
 
