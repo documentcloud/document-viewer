@@ -77,16 +77,17 @@ DV._.extend(DV.Schema.helpers, {
       });
 
       var viewer = this.viewer;
-      DV.jQuery(window).resize(function() {
+      var responsiveResize = DV._.debounce(function(){
         viewer.helpers.responsiveRedraw();
-      });
+      }, 50);
+      DV.jQuery(window).resize(responsiveResize);
     }
 
     if (this.viewer.helpers.isIframed()) {
       var viewer = this.viewer;
       var iframeResize = DV._.debounce(function(){
         viewer.api.redraw(true);
-      }, 100);
+      }, 50);
       DV.jQuery(window).resize(iframeResize);
     }
 
