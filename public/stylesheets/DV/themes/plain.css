@@ -146,3 +146,30 @@
   .DV-views .DV-last span {
     -webkit-border-top-right-radius: 5px; -moz-border-radius-topright: 5px;
   }
+
+
+@media (max-width: 200px) {
+  .DV-iframed .DV-annotationView,
+  .DV-iframed .DV-textView {
+    display: none !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .DV-iframed .DV-zoomControls {
+    display: none !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .DV-iframed .DV-thumbnailsView,
+  .DV-iframed .DV-navControlsContainer {
+    display: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .DV-iframed .DV-searchBox {
+    display: none !important;
+  }
+}

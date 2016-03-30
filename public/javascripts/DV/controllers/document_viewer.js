@@ -97,10 +97,8 @@ DV.DocumentViewer.prototype.notifyChangedState = function() {
 
 // Record a hit on this document viewer.
 DV.DocumentViewer.prototype.recordHit = function(hitUrl) {
-  var loc = window.location;
-  var url = loc.protocol + '//' + loc.host + loc.pathname;
+  var url = this.helpers.getSourceUrl();
   if (url.match(/^file:/)) return false;
-  url = url.replace(/[\/]+$/, '');
   var slug = this.api.getId();
   var id   = parseInt(slug, 10);
   var key  = encodeURIComponent('document:' + id + ':' + url);

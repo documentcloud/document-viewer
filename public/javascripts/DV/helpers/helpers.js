@@ -542,6 +542,31 @@ DV.Schema.helpers = {
           this.jump(opts.page - 1);
         }
       }
+    },
+
+    isIframed: function(){
+      try {
+          return window.self !== window.top;
+      } catch (e) {
+          return true;
+      }
+    },
+
+    getSourceUrl: function(){
+      var source, sourceUrl;
+      if (this.isIframed()) {
+        source      = document.createElement('A');
+        source.href = document.referrer;
+      } else {
+        source      = window.location;
+      }
+      sourceUrl = source.protocol + '//' + source.host;
+      if (source.pathname.indexOf('/') !== 0) {
+        sourceUrl += '/';
+      };
+      sourceUrl += source.pathname;
+      sourceUrl = sourceUrl.replace(/[\/]+$/, '');
+      return sourceUrl;
     }
 
 };

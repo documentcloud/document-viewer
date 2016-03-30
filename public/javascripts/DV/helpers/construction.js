@@ -82,10 +82,19 @@ DV._.extend(DV.Schema.helpers, {
       });
     }
 
+    if (this.viewer.helpers.isIframed()) {
+      var viewer = this.viewer;
+      var iframeResize = DV._.debounce(function(){
+        viewer.api.redraw(true);
+      }, 100);
+      DV.jQuery(window).resize(iframeResize);
+    }
+
     var container = this.viewer.options.container;
     var containerEl = DV.jQuery(container);
     if (!containerEl.length) throw "Document Viewer container element not found: " + container;
     containerEl.html(JST.viewer(viewerOptions));
+    if (this.viewer.helpers.isIframed()) DV.jQuery('html').addClass('DV-iframed');
   },
 
   // If there is no description, no navigation, and no sections, tighten up
