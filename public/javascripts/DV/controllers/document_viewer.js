@@ -118,7 +118,9 @@ DV.DocumentViewer.prototype.jQuery = function(selector, context) {
 };
 
 // The origin function, kicking off the entire documentViewer render.
-DV.load = function(documentRep, options) {
+// This is now a private fn, and the public `DV.load` is defined in the loader 
+// as a queuing fn. See https://github.com/documentcloud/documentcloud/pull/418
+DV.privateLoadDocument = function(documentRep, options) {
   options = options || {};
   var id  = documentRep.id || documentRep.match(/([^\/]+)(\.js|\.json)$/)[1];
   if ('showSidebar' in options) options.sidebar = options.showSidebar;
@@ -170,6 +172,12 @@ DV.load = function(documentRep, options) {
   }
 
   return viewer;
+};
+
+// For backwards-compatibility with the old loader (and for use by people who 
+// don't use our loader), alias `DV.load` to the private fn when undefined.
+if (DV._.isUndefined(DV.load)) {
+  DV.load = DV.privateLoadDocument;
 };
 
 // If the document viewer has been loaded dynamically, allow the external
