@@ -176,8 +176,9 @@ DV.immediatelyLoadDocument = function(documentRep, options) {
 };
 
 // For backwards-compatibility with the old loader (and for use by people who 
-// don't use our loader), alias `DV.load` to the immediate fn when undefined.
-if (DV._.isUndefined(DV.load)) {
+// don't use the loader), alias `DV.load` when undefined OR when defined by the 
+// old oEmbed loader (https://github.com/documentcloud/documentcloud/issues/420)
+if (DV._.isUndefined(DV.load) || !DV._.isUndefined(DV._documentsWaitingForAppLoad)) {
   DV.load = DV.immediatelyLoadDocument;
 };
 
