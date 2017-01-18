@@ -21,7 +21,7 @@ Take a peek at the viewer.html template to see how to load in a Document. All yo
 
   DV.load(JSON_FILE, { container: element_selector });
 
-*JSON_FILE*: Either an inline json object, or the path to a remote json object - https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json 
+*JSON_FILE*: Either an inline json object, or the path to a remote json object - https://www.documentcloud.org/documents/282753-lefler-thesis.json 
 
 * *container*: The element to contain the Document Viewer - '#DV-container'
 
@@ -29,7 +29,7 @@ Take a peek at the viewer.html template to see how to load in a Document. All yo
 == Data Formats: Documents
 All data should be formatted as JSON. When provided a cross domain url, DV will attempt a JSONP request. 
 Examples of this in use can be found here:
-https://www.documentcloud.org/documents/19864-goldman-sachs-internal-emails.json
+https://www.documentcloud.org/documents/282753-lefler-thesis.json
 
   {
     title       : DOCUMENT_TITLE,

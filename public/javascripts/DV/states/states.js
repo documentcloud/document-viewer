@@ -28,6 +28,7 @@ DV.Schema.states = {
 
     this.helpers.positionViewer();
     this.models.document.computeOffsets();
+    this.helpers.addObserver('checkVisibility');
     this.helpers.addObserver('drawPages');
     this.helpers.registerHashChangeEvents();
     this.dragReporter = new DV.DragReporter(this, '.DV-pageCollection',DV.jQuery.proxy(this.helpers.shift, this), { ignoreSelector: '.DV-annotationContent' });

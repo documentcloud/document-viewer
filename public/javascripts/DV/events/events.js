@@ -2,6 +2,7 @@
 DV.Schema.events = {
   // Change zoom level and causes a reflow and redraw of pages.
   zoom: function(level){
+    if (!this.viewer.visible) return;
     var viewer = this.viewer;
     var continuation = function() {
       viewer.pageSet.zoom({ zoomLevel: level });
@@ -15,7 +16,7 @@ DV.Schema.events = {
 
   // Draw (or redraw) the visible pages on the screen.
   drawPages: function() {
-    if (this.viewer.state != 'ViewDocument') return;
+    if (this.viewer.state != 'ViewDocument' || !this.viewer.visible) return;
     var doc           = this.models.document;
     var win           = this.elements.window[0];
     var offsets       = doc.baseHeightsPortionOffsets;
@@ -43,6 +44,13 @@ DV.Schema.events = {
     if (last) pages.pop();
     pages[first ? 0 : pages.length - 1].currentPage = true;
     this.viewer.pageSet.draw(pages);
+  },
+
+  checkVisibility: function() {
+    if (this.elements.viewer.is(':visible') && !this.viewer.visible) {
+      this.viewer.visible = true;
+      this.viewer.api.redraw(true)
+    }
   },
 
   check: function(){

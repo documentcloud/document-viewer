@@ -93,8 +93,7 @@
 
 <div id="doc1" class="doc"></div>
 <script type="text/javascript">
-  var docUrl = 'http://www.documentcloud.org/documents/7262-gubernatorial-schedules.js';
-  DV.load(docUrl, {
+  DV.load('https://www.documentcloud.org/documents/2853022-B-Turner-VIS.json', {
     container: '#doc1',
     width: 650,
     height: 500,
@@ -104,8 +103,7 @@
 
 <div id="doc2" class="doc"></div>
 <script type="text/javascript">
-  var docUrl = 'http://www.documentcloud.org/documents/6800-memo-on-alternatives-to-comprehensive-immigration-reform.js';
-  DV.load(docUrl, {
+  DV.load('https://www.documentcloud.org/documents/3141719-Response.json', {
     container: '#doc2',
     width: 572,
     height: 500,
@@ -115,8 +113,7 @@
 
 <div id="doc3" class="doc"></div>
 <script type="text/javascript">
-  var docUrl = 'http://www.documentcloud.org/documents/6800-memo-on-alternatives-to-comprehensive-immigration-reform.js';
-  DV.load(docUrl, {
+  DV.load('https://www.documentcloud.org/documents/490763-shelter-list.json', {
     container: '#doc3',
     width: 400,
     height: 500,
@@ -127,14 +124,27 @@
 
 <div id="doc4" class="doc"></div>
 <script type="text/javascript">
-  var docUrl = 'http://www.documentcloud.org/documents/7825-brunswickcommissionersperdiem.js';
-  DV.load(docUrl, {
+  DV.load('https://www.documentcloud.org/documents/2712091-Factsofthecase.json', {
     container: '#doc4',
     width: 1100,
     height: 500,
     sidebar: true,
     pdf: false
   });
+</script>
+
+<div id="doc5" class="doc" style="display: none;"></div>
+
+<script type="text/javascript">
+  DV.load('https://www.documentcloud.org/documents/3259984-Trump-Intelligence-Allegations.json', {
+    container: '#doc5',
+    width: 650,
+    height: 500,
+    sidebar: false
+  });
+  setTimeout(function() {
+    document.getElementById('doc5').style.display = 'block';
+  }, 5000);
 </script>
 
 </body>
