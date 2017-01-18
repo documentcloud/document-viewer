@@ -6,10 +6,80 @@
 
   <title>Document Viewer (Debug)</title>
 
-  <link href="dist/viewer-datauri.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/reset.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/structure.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/annotations.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/pages.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-footer.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-header.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-menu.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-navigation.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-search.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-text.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/ui-zoom.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/view-annotations.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/view-document.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/view-search.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/view-text.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/view-thumbnails.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/unsupported.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/components/minimode.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="public/stylesheets/DV/themes/plain.css" media="screen" rel="stylesheet" type="text/css">
   <link href="public/stylesheets/DV/print.css" media="print" rel="stylesheet" type="text/css">
-  <script src="dist/viewer.js" type="text/javascript"></script>
-  <script src="dist/templates.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery/dist/jquery.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-migrate-1.4.1.min.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/version.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/widget.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/position.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/data.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/disable-selection.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/focusable.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/form-reset-mixin.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/keycode.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/labels.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/scroll-parent.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/tabbable.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/unique-id.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/widgets/mouse.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/widgets/slider.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/effect.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery-ui/ui/effects/effect-blind.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/underscore/underscore.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery.acceptInput.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/vendor/jquery.placeholder.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/initializer.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/history.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/annotation.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/drag_reporter.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/elements.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/page.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/page_set.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/lib/thumbnails.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/schema/schema.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/elements/elements.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/models/annotation.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/models/chapter.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/models/document.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/models/page.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/events.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/ViewAnnotation.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/ViewDocument.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/ViewSearch.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/ViewText.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/ViewThumbnails.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/history.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/events/navigation.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/helpers.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/annotations.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/construction.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/editor.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/navigation.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/helpers/search.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/states/states.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/controllers/document_viewer.js" type="text/javascript"></script>
+  <script src="public/javascripts/DV/controllers/api.js" type="text/javascript"></script>
+  <script src="public/assets/templates.js" type="text/javascript"></script>
 
   <style>
     body {
