@@ -49,8 +49,7 @@ DV.Schema.events = {
   checkVisibility: function() {
     if (this.elements.viewer.is(':visible') && !this.viewer.visible) {
       this.viewer.visible = true;
-      this.viewer.events.drawPages();
-      this.viewer.helpers.autoZoomPage();
+      this.viewer.api.redraw(true)
     }
   },
 
