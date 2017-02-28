@@ -1,0 +1,30 @@
+{
+  "name": "documentcloud-document-viewer",
+  "description": "DocumentCloud document viewer based on NYTimes document viewer",
+  "version": "0.1.0",
+  "authors": [
+    "Jeremy Ashkenas <jashkenas@gmail.com>",
+    "Alan McLean <alan.mclean@gmail.com>",
+    "Ted Han <ted@knowtheory.net>",
+    "Justin Reese <justin@justinreese.com>"
+  ],
+  "keywords": [
+    "documentcloud",
+    "embedded",
+    "3rdparty"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/javascripts/DV/vendor"
+  ],
+  "dependencies": {
+    "jquery":     "~1.12.0",
+    "jquery-ui":  "~1.12.0",
+    "underscore": "~1.8.3"
+  }
+}

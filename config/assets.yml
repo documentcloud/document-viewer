@@ -4,9 +4,25 @@ gzip_assets:       off
 
 javascripts:
   viewer:
-    - public/javascripts/DV/vendor/jquery-1.5.1.js
-    - public/javascripts/DV/vendor/jquery-ui-1.8.1.custom.min.js
-    - public/javascripts/DV/vendor/underscore.js
+    - public/javascripts/DV/vendor/jquery/dist/jquery.js
+    - public/javascripts/DV/vendor/jquery-migrate-1.4.1.min.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/version.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/widget.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/position.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/data.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/disable-selection.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/focusable.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/form-reset-mixin.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/keycode.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/labels.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/scroll-parent.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/tabbable.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/unique-id.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/widgets/mouse.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/widgets/slider.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/effect.js
+    - public/javascripts/DV/vendor/jquery-ui/ui/effects/effect-blind.js
+    - public/javascripts/DV/vendor/underscore/underscore.js
     - public/javascripts/DV/vendor/jquery.acceptInput.js
     - public/javascripts/DV/vendor/jquery.placeholder.js
     - public/javascripts/DV/lib/initializer.js
@@ -21,7 +37,6 @@ javascripts:
     - public/javascripts/DV/helpers/*.js
     - public/javascripts/DV/states/*.js
     - public/javascripts/DV/controllers/*.js
-
   templates:
     - public/javascripts/DV/views/*.jst
 
@@ -37,7 +52,5 @@ stylesheets:
     - public/stylesheets/DV/components/unsupported.css
     - public/stylesheets/DV/components/minimode.css
     - public/stylesheets/DV/themes/plain.css
-
   print:
     - public/stylesheets/DV/print.css
-

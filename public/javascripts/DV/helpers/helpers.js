@@ -111,7 +111,7 @@ DV.Schema.helpers = {
       this.elements.well[0].ontouchmove     = this.touchMove;
       this.elements.well[0].ontouchend      = this.touchEnd;
 
-      viewer.$('.DV-descriptionToggle').live('click',function(e){
+      viewer.$('.DV-descriptionToggle').on('click',function(e){
         e.preventDefault();
         e.stopPropagation();
 
@@ -121,7 +121,7 @@ DV.Schema.helpers = {
 
       var cleanUp = DV.jQuery.proxy(viewer.pageSet.cleanUp, this);
 
-      this.elements.window.live('mousedown',
+      this.elements.window.on('mousedown',
         function(e){
           var el = viewer.$(e.target);
           if (el.parents().is('.DV-annotation') || el.is('.DV-annotation')) return true;
@@ -146,7 +146,7 @@ DV.Schema.helpers = {
       // When the document is scrolled, even in the background, resume polling.
       this.elements.window.bind('scroll.' + docId, DV.jQuery.proxy(this.focusWindow, this));
 
-      this.elements.coverPages.live('mousedown', cleanUp);
+      this.elements.coverPages.on('mousedown', cleanUp);
 
       viewer.acceptInput = this.elements.currentPage.acceptInput({ changeCallBack: DV.jQuery.proxy(this.acceptInputCallBack,this) });
 
