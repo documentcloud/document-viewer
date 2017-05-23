@@ -122,6 +122,7 @@ DV._.extend(DV.Schema.helpers, {
         }
       }
       toHighLight = false;
+      this.viewer.toHighLight = null;
     }
     var searchResponse = this.viewer.searchResponse;
     if (searchResponse) {
@@ -130,7 +131,7 @@ DV._.extend(DV.Schema.helpers, {
         if(searchResponse.results.length === currentPageIndex+1){
           return;
         }
-        toHighLight = 'first';
+        
         this.events.loadText(searchResponse.results[currentPageIndex + 1] - 1,this.highlightSearchResponses);
 
         return;
@@ -138,8 +139,8 @@ DV._.extend(DV.Schema.helpers, {
         if(currentPageIndex-1 < 0){
           return  false;
         }
-        toHighLight = 'last';
-        this.events.loadText(searchResponse.results[currentPageIndex - 1] - 1,this.highlightSearchResponses);
+        this.viewer.toHighLight = 'last';
+        this.events.loadText(String(searchResponse.results[currentPageIndex - 1] - 1),this.highlightSearchResponses);
 
         return;
       }
