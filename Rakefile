@@ -6,3 +6,8 @@ namespace :build do
   end
 
 end
+
+desc "Build the viewer"
+task :build do
+  `jammit -c config/assets.yml`
+end
