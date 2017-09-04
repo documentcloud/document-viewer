@@ -155,7 +155,9 @@ DV.immediatelyLoadDocument = function(documentRep, options) {
   var jsonLoad = function() {
     if (DV._.isString(documentRep)) {
       if (documentRep.match(/\.js$/)) {
-        DV.jQuery.getScript(documentRep);
+        //DV.jQuery.getScript(documentRep);
+        var cacheRequest = (options.cache == undefined) ? true : options.cache;
+        DV.jQuery.ajax({ cache: cacheRequest, url: documentRep, dataType: "script" });
       } else {
         var crossDomain = viewer.helpers.isCrossDomain(documentRep);
         if (crossDomain) documentRep = documentRep + '?callback=?';
