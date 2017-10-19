@@ -6,10 +6,12 @@ DV._.extend(DV.Schema.events, {
     var chapterEl   = el.closest('.DV-chapter');
     if (!triggerEl.length) return;
 
+    debugger;
+
     if (el.hasClass('DV-expander')) {
       return chapterEl.toggleClass('DV-collapsed');
 
-    }else if (noteEl.length) {
+    } else if (noteEl.length) {
       var aid         = noteEl[0].id.replace('DV-annotationMarker-','');
       var annotation  = this.models.annotations.getAnnotation(aid);
       var pageNumber  = parseInt(annotation.index,10)+1;
@@ -18,7 +20,7 @@ DV._.extend(DV.Schema.events, {
         this.loadText(annotation.index);
 
         // this.viewer.history.save('text/p'+pageNumber);
-      }else{
+      } else{
         if (this.viewer.state === 'ViewThumbnails') {
           this.viewer.open('ViewDocument');
         }
@@ -35,18 +37,18 @@ DV._.extend(DV.Schema.events, {
       if(this.viewer.state === 'ViewText'){
         this.loadText(chapterIndex);
         // this.viewer.history.save('text/p'+pageNumber);
-      }else if(this.viewer.state === 'ViewDocument' ||
+      } else if(this.viewer.state === 'ViewDocument' ||
                this.viewer.state === 'ViewThumbnails'){
         this.helpers.jump(chapterIndex);
         // this.viewer.history.save('document/p'+pageNumber);
         if (this.viewer.state === 'ViewThumbnails') {
           this.viewer.open('ViewDocument');
         }
-      }else{
+      } else{
         return false;
       }
 
-    }else{
+    } else{
       return false;
     }
   }
