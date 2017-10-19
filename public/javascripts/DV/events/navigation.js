@@ -6,8 +6,6 @@ DV._.extend(DV.Schema.events, {
     var chapterEl   = el.closest('.DV-chapter');
     if (!triggerEl.length) return;
 
-    debugger;
-
     if (el.hasClass('DV-expander')) {
       return chapterEl.toggleClass('DV-collapsed');
 

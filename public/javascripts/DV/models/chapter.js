@@ -11,15 +11,18 @@ DV.model.Chapters.prototype = {
     var chapters = this.chapters = this.viewer.schema.data.chapters = [];
     DV._.each(sections, function(sec){ sec.id || (sec.id = DV._.uniqueId()); });
 
+    // loop through the list of pages.
     var sectionIndex = 0;
-    for (var i = 0, l = this.viewer.schema.data.totalPages; i < l; i++) {
-      var section = sections[sectionIndex];
+    for (var currentPage = 0, l = this.viewer.schema.data.totalPages; currentPage < l; currentPage++) {
+      // check what section we're in.
+      var currentSection = sections[sectionIndex];
+      // check what the next currentSection break is.
       var nextSection = sections[sectionIndex + 1];
-      if (nextSection && (i >= (nextSection.page - 1))) {
+      if (nextSection && (currentPage >= (nextSection.page - 1))) {
         sectionIndex += 1;
-        section = nextSection;
+        currentSection = nextSection;
       }
-      if (section && !(section.page > i + 1)) chapters[i] = section.id;
+      if (currentSection && !(currentSection.page > currentPage + 1)) chapters[currentPage] = parseInt(currentSection.id, 10);
     }
   },
 
@@ -28,10 +31,12 @@ DV.model.Chapters.prototype = {
   },
 
   getChapterPosition: function(chapterId){
-    for(var i = 0,len=this.chapters.length; i < len; i++){
-      if(this.chapters[i] === chapterId){
-        return i;
-      }
+    if (! DV._.isNumber(chapterId)) {
+      console.log("chapterId isn't a number, attempting to coerce...");
+      chapterId = parseInt(chapterId, 10);
     }
-  }
+    for(var i = 0,len=this.chapters.length; i < len; i++){
+      if( this.chapters[i] === chapterId){ return i; }
+    }
+  }  
 };
